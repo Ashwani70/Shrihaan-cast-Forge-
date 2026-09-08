@@ -93,9 +93,9 @@ export default function Contact({ onQuote }) {
             <div className="bg-primary p-7 text-slate-300" data-testid="contact-info-card">
               <h3 className="font-heading font-bold text-white text-lg">Head Office &amp; Works</h3>
               <ul className="mt-5 space-y-4 text-sm">
-                <li className="flex gap-3"><MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" /><span>Address: <span className="italic">Available on Request</span></span></li>
-                <li className="flex gap-3"><Mail className="w-4 h-4 text-accent shrink-0 mt-0.5" /><span>Email: <span className="italic">Available on Request</span></span></li>
-                <li className="flex gap-3"><Phone className="w-4 h-4 text-accent shrink-0 mt-0.5" /><span>Phone / WhatsApp: <span className="italic">Available on Request</span></span></li>
+                <li className="flex gap-3"><MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" /><span>Gurdev Nagar Estate Sahnewal, Dehlon Road, Paddi, Ludhiana, Punjab, India - 141206</span></li>
+                <li className="flex gap-3"><Mail className="w-4 h-4 text-accent shrink-0 mt-0.5" /><a href="mailto:sales@shrihaancastforge.com" className="hover:text-accent transition-colors">sales@shrihaancastforge.com</a></li>
+                <li className="flex gap-3"><Phone className="w-4 h-4 text-accent shrink-0 mt-0.5" /><a href="tel:+919115942100" className="hover:text-accent transition-colors">+91-9115942100</a></li>
               </ul>
             </div>
             <div className="bg-white border border-border p-7">

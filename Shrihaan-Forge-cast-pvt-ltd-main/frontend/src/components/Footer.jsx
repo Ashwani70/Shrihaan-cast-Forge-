@@ -44,11 +44,11 @@ export const Footer = ({ onQuote }) => (
         </ul>
       </div>
       <div>
-        <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-4">Contact</h4>
+        <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-4">Contact Us</h4>
         <ul className="space-y-3 text-sm text-slate-400">
-          <li>Address: <span className="italic">Available on Request</span></li>
-          <li>Email: <span className="italic">Available on Request</span></li>
-          <li>Phone / WhatsApp: <span className="italic">Available on Request</span></li>
+          <li className="leading-relaxed">Gurdev Nagar Estate Sahnewal, Dehlon Road, Paddi, Ludhiana, Punjab, India - 141206</li>
+          <li>Email: <a href="mailto:sales@shrihaancastforge.com" className="text-slate-300 hover:text-accent transition-colors">sales@shrihaancastforge.com</a></li>
+          <li>Phone: <a href="tel:+919115942100" className="text-slate-300 hover:text-accent transition-colors">+91-9115942100</a></li>
         </ul>
       </div>
     </div>
