@@ -1,0 +1,13 @@
+{
+  "name": "shrihaan-forge-cast-pvt-ltd-main",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd Shrihaan-Forge-cast-pvt-ltd-main/frontend && npm install --legacy-peer-deps",
+    "install:frontend": "cd Shrihaan-Forge-cast-pvt-ltd-main/frontend && npm install --legacy-peer-deps",
+    "start": "cd Shrihaan-Forge-cast-pvt-ltd-main/frontend && npm start",
+    "start:frontend": "cd Shrihaan-Forge-cast-pvt-ltd-main/frontend && npm start",
+    "build": "cd Shrihaan-Forge-cast-pvt-ltd-main/frontend && npm run build",
+    "test": "cd Shrihaan-Forge-cast-pvt-ltd-main/frontend && npm test"
+  }
+}

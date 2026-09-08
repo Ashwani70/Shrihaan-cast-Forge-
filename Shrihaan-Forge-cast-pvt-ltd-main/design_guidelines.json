@@ -1,0 +1,120 @@
+{
+  "theme": "light",
+  "typography": {
+    "headings": "Manrope",
+    "body": "Inter",
+    "instructions": "Use Manrope for all headings with tracking-tight. DO NOT use Inter for headings to avoid a generic look. Use Inter for body text for optimal legibility. Ensure strict hierarchy (e.g., H1 max text-5xl/6xl, H2 text-3xl/4xl)."
+  },
+  "colors": {
+    "primary": "#111827",
+    "secondary": "#374151",
+    "background": "#F8FAFC",
+    "card": "#FFFFFF",
+    "accent": "#D97706",
+    "instructions": "Strictly adhere to Deep Industrial Navy (#111827) and Steel Grey (#374151). Use the copper/metallic orange accent (#D97706) sparingly for primary CTAs, indicators, and hover states. Never use pure #000000. Do not use generic full-screen gradients."
+  },
+  "visual_enhancers": {
+    "instructions": "Employ 'Grid Borders' for a technical, precise industrial look (border-collapse layouts, subtle 1px borders using border-border/40). Use crisp edges with minimal border-radius (max 4px/sm). Incorporate layered shadows (ambient + direct) for interactive elements."
+  },
+  "components": [
+    {
+      "name": "Navigation & Header",
+      "instructions": "Compact sticky header (z-50). Use Solid Background (#111827) or Crystal Glassmorphism (bg-white/80 backdrop-blur-xl border-b border-border). Logo on the left, mega-nav/links centered, Request Quote button on the right. Must not overlap content (add pt-[header-height] to body/main)."
+    },
+    {
+      "name": "Hero Section",
+      "instructions": "Headline: 'PRECISION ENGINEERED. BUILT FOR PERFORMANCE.' Use Manrope, text-5xl/6xl. Subheadline about advanced solutions. Use an industrial hero image with a max overlay opacity of bg-black/40 (do not kill the image). Left align or smartly balance layout."
+    },
+    {
+      "name": "Product Categories & Grid",
+      "instructions": "12 categories: Ringlock System, Ringlock Accessories, Cuplock System, Support Railings, Kwikstage System, Ladders Brackets Gates & Accessories, Screw Base Jacks, Walk Boards & Steel Planks, Steel Props, Forged & Pressed Couplers, Framework Accessories, Frames. Use a High-Density Grid layout for catalogs (gap-4/6) with cardless or subtle 1px border card styling. Include product image, name, short desc, item code, 'View Product' and 'Request Quote' actions."
+    },
+    {
+      "name": "Product Detail Page",
+      "instructions": "Two-column layout. Left: Image gallery (main image + thumbnails) with zoom and fullscreen preview. Right: Product name, item code, description, specifications rendered in a clean HTML table, 'Request a Quote' / 'Send Enquiry' buttons."
+    },
+    {
+      "name": "Forms & Modals",
+      "instructions": "Use customized Shadcn UI Dialogs for the Enquiry/Quote modals. Forms should use Shadcn Input, Select, and Textarea with crisp borders and subtle focus rings (focus:ring-2 focus:ring-accent)."
+    },
+    {
+      "name": "Buttons",
+      "instructions": "Sharp or slightly rounded (rounded-sm) buttons. Apply interaction micro-animations (hover:translate-y-[-2px] shadow-md). Explicitly set hover text colors (e.g., hover:bg-accent/90 hover:text-white). Use Accent color for primary CTAs only."
+    }
+  ],
+  "grids_layouts": {
+    "instructions": "Implement High Density Grids (Mode B) for Data/Catalogs. Use col-span-1 to col-span-4 logic. Override grid stretch with align-items: start where necessary. Elements must align optically. Mobile-first responsive grids."
+  },
+  "motion": {
+    "instructions": "Subtle micro-interactions only. Hover states must be distinct. Provide staggered entrance animations for the product catalog list. Do not use 'transition: all' (specify transform/opacity/colors)."
+  },
+  "accessibility": {
+    "instructions": "Ensure WCAG AA contrast (4.5:1 for normal text). Focus states must clearly outline the element. Add 'data-testid' to ALL interactive elements (buttons, links, form inputs)."
+  },
+  "media": {
+    "instructions": "Product images must have max-h-[80vh] on mobile to prevent layout distortion. Include context/subjects in images where possible."
+  },
+  "image_urls": {
+    "hero": [
+      {
+        "url": "https://images.unsplash.com/photo-1600684249816-38cdfcf95c17?q=85&w=1600",
+        "description": "Industrial metal forging, hot orange/black aesthetic. Great for Hero background."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?q=85&w=1600",
+        "description": "Large industrial factory interior. Alternative Hero background."
+      }
+    ],
+    "categories": [
+      {
+        "url": "https://images.unsplash.com/photo-1713593930871-e21d7f9ef4a1?q=85&w=600",
+        "description": "Scaffolding structure and construction site. Use for Scaffolding Categories."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1646608220368-c604d8e8130f?q=85&w=600",
+        "description": "Man standing on a scaffold in front of a building."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1769147339214-076740872485?q=85&w=600",
+        "description": "Precision engineering metal components on blueprints. Use for Forging/Casting Categories."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1548683726-203119be6a39?q=85&w=600",
+        "description": "Metal flanges/components."
+      }
+    ],
+    "quality_engineering": [
+      {
+        "url": "https://images.unsplash.com/photo-1700727448575-6f1680cd7d75?q=85&w=800",
+        "description": "Quality control inspector working. Use for Quality & Engineering section."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1632914146475-bfe6fa6b2a12?q=85&w=800",
+        "description": "Precision factory equipment in operation."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Install @phosphor-icons/react using yarn for high-end duotone industrial icons.",
+    "Update tailwind.config.js and src/index.css to implement the defined colors (Primary #111827, Secondary #374151, Accent #D97706, Background #F8FAFC).",
+    "Remove default React boilerplate text-alignment centered in App.css (`.App { text-align: center; }`).",
+    "Construct the UI adhering to an 'International Premium Industrial B2B' aesthetic. Avoid cartoonish, over-rounded, or whimsical details.",
+    "Set up the 12 product categories correctly in the Product Catalogue. Implement text search and filtering mechanisms.",
+    "Implement the 'Request a Quote' process comprehensively (Button -> Modal/Page).",
+    "Build the 'Catalogue' page with a clear visual call-to-action for downloading the PDF.",
+    "Use Shadcn components for Select, Tabs, Dialogs, and Tables but customize their appearance to match the industrial theme (remove Vercel-look soft shadows, use crisp 1px borders)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic outputs. Avoid AI slop aesthetic. Create distinctive frontends that look premium.",
+    "Do not use dark colors as gradients.",
+    "Do not make generic centered layouts. Use asymmetrical or heavily structured grid layouts.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) thoughtfully (e.g., sticky nav).",
+    "Do not apply universal transition (transition: all). Add transitions for specific interactive elements only.",
+    "Never use AI assistant Emoji characters (🤖🧠💭💡) in the UI.",
+    "Every interaction needs micro-animations - hover states, selection states, transitions.",
+    "Use generous spacing. Cramped designs look cheap.",
+    "Never use placeholder image URLs. Use only the provided Unsplash URLs.",
+    "All interactive elements must include a data-testid attribute."
+  ]
+}
