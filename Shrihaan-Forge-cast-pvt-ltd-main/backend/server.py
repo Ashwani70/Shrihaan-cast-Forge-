@@ -1,12 +1,15 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, Request, Response
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import StreamingResponse
-from dotenv import load_dotenv
+from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import asyncio
 import re
+import time
+from collections import defaultdict
 import ipaddress
 import logging
 import httpx
@@ -219,7 +222,63 @@ def _enquiry_email_html(doc: dict) -> str:
     </div>
     """
 
+# --- Security Middleware ---
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response: Response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; "
+            "img-src 'self' data: https:; "
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval'; "
+            "style-src 'self' 'unsafe-inline'; "
+            "font-src 'self' data: https:;"
+        )
+        return response
+
+
+_RATE_LIMIT_STORE = defaultdict(list)
+_SENSITIVE_PATHS = {"/api/enquiries", "/api/admin/login"}
+
+class RateLimiterMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        client_ip = request.client.host if request.client else "127.0.0.1"
+        now = time.time()
+        path = request.url.path
+
+        # Clean records older than 60s
+        timestamps = [t for t in _RATE_LIMIT_STORE[client_ip] if now - t < 60]
+        _RATE_LIMIT_STORE[client_ip] = timestamps
+
+        # Enforce rate limit (15 requests/min on sensitive routes, 120 requests/min overall)
+        limit = 15 if any(path.startswith(p) for p in _SENSITIVE_PATHS) else 120
+        if len(timestamps) >= limit:
+            return Response(
+                content=_json.dumps({"detail": "Too many requests. Please wait a moment before trying again."}),
+                status_code=429,
+                media_type="application/json"
+            )
+
+        _RATE_LIMIT_STORE[client_ip].append(now)
+        return await call_next(request)
+
+
+def _sanitize_string(val: str, max_len: int = 500) -> str:
+    if not val:
+        return ""
+    s = re.sub(r"<script.*?>.*?</script>", "", str(val), flags=re.I | re.S)
+    s = re.sub(r"javascript:", "", s, flags=re.I)
+    s = re.sub(r"on\w+\s*=", "", s, flags=re.I)
+    return s.strip()[:max_len]
+
+
 app = FastAPI()
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(RateLimiterMiddleware)
 api_router = APIRouter(prefix="/api")
 
 
@@ -266,7 +325,21 @@ async def create_enquiry(input: EnquiryCreate):
         logger.info("Spam honeypot triggered; ignoring submission.")
         return Enquiry(**input.model_dump(exclude={'hp_field'}))
 
-    obj = Enquiry(**input.model_dump(exclude={'hp_field'}))
+    # Sanitize inputs against XSS and buffer attacks
+    sanitized = {
+        'name': _sanitize_string(input.name, 100),
+        'company': _sanitize_string(input.company, 150),
+        'country': _sanitize_string(input.country, 100),
+        'email': input.email.strip().lower(),
+        'phone': _sanitize_string(input.phone, 30),
+        'product': _sanitize_string(input.product, 150),
+        'itemCode': _sanitize_string(input.itemCode, 50),
+        'quantity': _sanitize_string(input.quantity, 50),
+        'message': _sanitize_string(input.message, 2000),
+        'source': _sanitize_string(input.source, 50) or 'quote',
+    }
+
+    obj = Enquiry(**sanitized)
     doc = obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
     await db.enquiries.insert_one(doc)

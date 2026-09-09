@@ -1,0 +1,27 @@
+# Root Git Ignore - Security & Secret Protection
+
+# Environment & Credentials (NEVER COMMIT)
+.env
+.env.*
+*.env
+*.key
+credentials.json
+*token.json*
+
+# Dependencies & Environments
+node_modules/
+**/node_modules/
+venv/
+.venv/
+__pycache__/
+
+# Build & Dist Outputs
+build/
+dist/
+.cache/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { MapPin, Mail, Phone, Clock, Globe } from 'lucide-react';
 import { SEO, DOMAIN, ORGANIZATION_SCHEMA } from '../components/SEO';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const API = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000'}/api`;
 
 const inputCls =
   'w-full border border-input bg-white px-3 py-2.5 text-sm rounded-sm outline-none transition-shadow duration-150 focus:ring-2 focus:ring-accent/60 focus:border-accent';
