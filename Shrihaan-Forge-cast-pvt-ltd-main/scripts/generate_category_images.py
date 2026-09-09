@@ -1,9 +1,17 @@
 import asyncio
 import base64
 import os
-import sys
 from dotenv import load_dotenv
-from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent
+import importlib
+
+try:
+    _llm_mod = importlib.import_module("emergentintegrations.llm.chat")
+    LlmChat = getattr(_llm_mod, "LlmChat", None)
+    UserMessage = getattr(_llm_mod, "UserMessage", None)
+    ImageContent = getattr(_llm_mod, "ImageContent", None)
+except Exception:
+    LlmChat = UserMessage = ImageContent = None
+
 
 load_dotenv('/app/backend/.env')
 API_KEY = os.environ['EMERGENT_LLM_KEY']

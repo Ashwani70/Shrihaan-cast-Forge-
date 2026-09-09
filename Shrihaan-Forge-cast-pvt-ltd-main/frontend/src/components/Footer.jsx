@@ -9,7 +9,7 @@ export const Footer = ({ onQuote }) => (
       <div>
         <Logo dark />
         <p className="mt-5 text-sm leading-relaxed text-slate-400">
-          Engineering-focused B2B manufacturer of casting, forging, scaffolding, shoring and industrial engineering products for demanding applications.
+          Engineering-focused B2B manufacturer of forging, casting, scaffolding, shoring and industrial engineering products for demanding applications.
         </p>
         <button
           data-testid="footer-request-quote-btn"
@@ -64,7 +64,7 @@ export const Footer = ({ onQuote }) => (
     <div className="border-t border-white/10">
       <div className="container-x py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
         <span data-testid="footer-copyright">© {new Date().getFullYear()} Shrihaan Cast &amp; Forge Private Limited. All Rights Reserved.</span>
-        <span>Casting · Forging · Scaffolding · Shoring · Industrial Engineering Products</span>
+        <span>Forging · Casting · Scaffolding · Shoring · Industrial Engineering Products</span>
       </div>
     </div>
   </footer>

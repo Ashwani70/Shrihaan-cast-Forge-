@@ -12,8 +12,8 @@ export default function About({ onQuote }) {
         '@type': 'AboutPage',
         '@id': `${DOMAIN}/about#webpage`,
         url: `${DOMAIN}/about`,
-        name: `About ${COMPANY_NAME} | Casting & Forging Manufacturer`,
-        description: `${COMPANY_NAME} is a manufacturer of high-quality casting and forging components for industrial and engineering applications.`,
+        name: `About ${COMPANY_NAME} | Forging & Casting Manufacturer`,
+        description: `${COMPANY_NAME} is a manufacturer of high-quality forging and casting components for industrial and engineering applications.`,
       },
     ],
   };
@@ -21,9 +21,9 @@ export default function About({ onQuote }) {
   return (
     <div data-testid="about-page">
       <SEO
-        title={`About ${COMPANY_NAME} | Casting & Forging Manufacturer`}
-        description={`${COMPANY_NAME} is a manufacturer of high-quality casting and forging components for industrial and engineering applications. We focus on precision, quality, reliability and consistent manufacturing standards.`}
-        keywords="Shrihaan Cast & Forge Private Limited, About Shrihaan Cast & Forge, casting manufacturer, forging manufacturer, precision components, industrial components, engineering components"
+        title={`About ${COMPANY_NAME} | Forging & Casting Manufacturer`}
+        description={`${COMPANY_NAME} is a manufacturer of high-quality forging and casting components for industrial and engineering applications. We focus on precision, quality, reliability and consistent manufacturing standards.`}
+        keywords="Shrihaan Cast & Forge Private Limited, About Shrihaan Cast & Forge, forging manufacturer, casting manufacturer, precision components, industrial components, engineering components"
         canonical="/about"
         schema={schema}
       />
@@ -35,7 +35,7 @@ export default function About({ onQuote }) {
             Shrihaan Cast &amp; Forge Private Limited
           </h1>
           <p className="mt-4 text-slate-300 max-w-3xl text-sm md:text-base leading-relaxed">
-            Manufacturer of high-quality casting and forging components for industrial and engineering applications.
+            Manufacturer of high-quality forging and casting components for industrial and engineering applications.
           </p>
         </div>
       </div>
@@ -45,19 +45,19 @@ export default function About({ onQuote }) {
           <div>
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Company Overview</span>
             <h2 className="mt-2 font-heading font-extrabold text-2xl md:text-3xl text-primary">
-              Casting &amp; Forging Component Manufacturing
+              Forging &amp; Casting Component Manufacturing
             </h2>
             <p className="mt-5 text-secondary text-sm md:text-base leading-relaxed">
-              <strong>Shrihaan Cast &amp; Forge Private Limited</strong> is a manufacturer of high-quality casting and forging components for industrial and engineering applications. We focus on precision, quality, reliability and consistent manufacturing standards.
+              <strong>Shrihaan Cast &amp; Forge Private Limited</strong> is a manufacturer of high-quality forging and casting components for industrial and engineering applications. We focus on precision, quality, reliability and consistent manufacturing standards.
             </p>
             <p className="mt-4 text-secondary text-sm md:text-base leading-relaxed">
-              Our manufacturing facilities combine casting expertise, closed-die forging, precision machining, and strict metallurgical quality control. We supply reliable industrial components engineered for demanding mechanical load and dimensional requirements.
+              Our manufacturing facilities combine forging expertise, closed-die forging, casting capabilities, precision machining, and strict metallurgical quality control. We supply reliable industrial components engineered for demanding mechanical load and dimensional requirements.
             </p>
 
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="bg-slate-50 p-4 border border-slate-200">
                 <Factory className="w-6 h-6 text-accent mb-2" />
-                <h3 className="font-bold text-primary text-sm">Casting &amp; Forging Manufacturing</h3>
+                <h3 className="font-bold text-primary text-sm">Forging &amp; Casting Manufacturing</h3>
                 <p className="text-xs text-secondary mt-1">Closed die forging, drop hammers, casting facilities, and precision machining.</p>
               </div>
               <div className="bg-slate-50 p-4 border border-slate-200">
@@ -79,7 +79,7 @@ export default function About({ onQuote }) {
 
             <ul className="mt-8 space-y-3">
               {[
-                'Precision casting and forging component manufacturing',
+                'Precision forging and casting component manufacturing',
                 'High-durability industrial and engineering components',
                 'Custom component manufacturing according to technical specifications',
                 'Strict quality inspection and consistent production standards',

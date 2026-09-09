@@ -4,11 +4,11 @@ export const DOMAIN = 'https://www.shrihaancastforge.com';
 export const COMPANY_NAME = 'Shrihaan Cast & Forge Private Limited';
 
 export const DEFAULT_KEYWORDS =
-  'Shrihaan Cast & Forge Private Limited, Precision Casting, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Casting, Custom Forging';
+  'Shrihaan Cast & Forge Private Limited, Precision Forging, Steel Forging, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Forging, Custom Casting';
 
 export function SEO({
-  title = `${COMPANY_NAME} | Precision Casting & Forging Manufacturer`,
-  description = `${COMPANY_NAME} is a precision casting and forging components manufacturer supplying high-quality industrial components for engineering, automotive, machinery and industrial applications.`,
+  title = `${COMPANY_NAME} | Precision Forging & Casting Manufacturer`,
+  description = `${COMPANY_NAME} is a precision forging and casting components manufacturer supplying high-quality industrial components for engineering, automotive, machinery and industrial applications.`,
   keywords = DEFAULT_KEYWORDS,
   canonical,
   ogImage = `${DOMAIN}/logo.png`,
@@ -97,7 +97,7 @@ export const ORGANIZATION_SCHEMA = {
   url: `${DOMAIN}/`,
   logo: `${DOMAIN}/logo.png`,
   description:
-    'Shrihaan Cast & Forge Private Limited is a manufacturer of precision casting and forging components for industrial and engineering applications.',
+    'Shrihaan Cast & Forge Private Limited is a manufacturer of precision forging and casting components for industrial and engineering applications.',
   telephone: '+91-9115942100',
   email: 'sales@shrihaancastforge.com',
   address: {

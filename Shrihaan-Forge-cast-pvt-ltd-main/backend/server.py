@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import asyncio
 import re
 import ipaddress
 import logging
@@ -20,23 +21,33 @@ from datetime import datetime, timezone, timedelta
 import bcrypt
 import jwt
 import json as _json
-from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
+import importlib
+
+try:
+    _llm_mod = importlib.import_module("emergentintegrations.llm.chat")
+    LlmChat = getattr(_llm_mod, "LlmChat", None)
+    UserMessage = getattr(_llm_mod, "UserMessage", None)
+    TextDelta = getattr(_llm_mod, "TextDelta", None)
+    StreamDone = getattr(_llm_mod, "StreamDone", None)
+except Exception:
+    LlmChat = UserMessage = TextDelta = StreamDone = None
+
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-mongo_url = os.environ['MONGO_URL']
+mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client[os.environ.get('DB_NAME', 'shrihaan_db')]
 
-EMAIL_BASE_URL = "https://integrations.emergentagent.com"
-EMAIL_KEY = os.environ["EMERGENT_EMAIL_KEY"]
-EMAIL_FROM_NAME = os.environ["EMAIL_FROM_NAME"]
-OWNER_EMAIL = os.environ.get("OWNER_EMAIL")
-JWT_SECRET = os.environ["JWT_SECRET"]
+EMAIL_BASE_URL = os.environ.get("EMAIL_BASE_URL", "https://integrations.emergentagent.com")
+EMAIL_KEY = os.environ.get("EMERGENT_EMAIL_KEY", "")
+EMAIL_FROM_NAME = os.environ.get("EMAIL_FROM_NAME", "Shrihaan Cast & Forge Private Limited")
+OWNER_EMAIL = os.environ.get("OWNER_EMAIL", "sales@shrihaancastforge.com")
+JWT_SECRET = os.environ.get("JWT_SECRET", "default_secret_key_change_in_env")
 JWT_ALGORITHM = "HS256"
-ADMIN_EMAIL = os.environ["ADMIN_EMAIL"]
-ADMIN_PASSWORD = os.environ["ADMIN_PASSWORD"]
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@shrihaancastforge.com")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin_secret_pass")
 
 logger = logging.getLogger(__name__)
 
@@ -110,64 +121,120 @@ def _assert_safe_email(subject: str, html: str) -> None:
                 raise ValueError(f"Anchor text {m.group(1)!r} != real link host {real!r} (G3)")
 
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+SMTP_HOST = os.environ.get("SMTP_HOST", "")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "465"))
+SMTP_USER = os.environ.get("SMTP_USER", "")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
+SMTP_FROM = os.environ.get("SMTP_FROM", "") or SMTP_USER or "sales@shrihaancastforge.com"
+SMTP_USE_SSL = os.environ.get("SMTP_USE_SSL", "true").lower() in ("true", "1", "yes")
+
 async def send_email(*, to: str, subject: str, html: str, reply_to: str | None = None) -> str | None:
     _assert_safe_email(subject, html)
-    payload = {"to": [to], "subject": subject, "html": html, "from_name": EMAIL_FROM_NAME}
-    if reply_to:
-        payload["contact_email"] = reply_to
-    try:
-        async with httpx.AsyncClient(timeout=30) as http:
-            resp = await http.post(
-                f"{EMAIL_BASE_URL}/api/v1/email/send",
-                headers={"X-Email-Key": EMAIL_KEY},
-                json=payload,
-            )
-        resp.raise_for_status()
-        return resp.json().get("id")
-    except httpx.HTTPStatusError as e:
-        logger.error(f"Email send failed: {e.response.status_code} {e.response.text}")
-        return None
-    except Exception as e:
-        logger.error(f"Email send error: {str(e)}")
-        return None
+
+    # 1. Try SMTP if configured (Hostinger, Gmail, Custom SMTP)
+    if SMTP_HOST and SMTP_USER and SMTP_PASSWORD:
+        def _send_smtp():
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = subject
+            msg["From"] = f"{EMAIL_FROM_NAME} <{SMTP_FROM}>"
+            msg["To"] = to
+            if reply_to:
+                msg["Reply-To"] = reply_to
+
+            msg.attach(MIMEText(html, "html"))
+
+            if SMTP_USE_SSL:
+                with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=20) as server:
+                    server.login(SMTP_USER, SMTP_PASSWORD)
+                    server.sendmail(SMTP_FROM, [to], msg.as_string())
+            else:
+                with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=20) as server:
+                    server.starttls()
+                    server.login(SMTP_USER, SMTP_PASSWORD)
+                    server.sendmail(SMTP_FROM, [to], msg.as_string())
+            return "smtp-success"
+
+        try:
+            return await asyncio.to_thread(_send_smtp)
+        except Exception as e:
+            logger.error(f"SMTP email dispatch failed: {e}")
+
+    # 2. Try Resend / Emergent API Proxy if key is configured
+    key = EMAIL_KEY or os.environ.get("RESEND_API_KEY", "")
+    if key:
+        payload = {"to": [to], "subject": subject, "html": html, "from_name": EMAIL_FROM_NAME}
+        if reply_to:
+            payload["contact_email"] = reply_to
+            payload["reply_to"] = reply_to
+        try:
+            async with httpx.AsyncClient(timeout=30) as http:
+                resp = await http.post(
+                    f"{EMAIL_BASE_URL}/api/v1/email/send",
+                    headers={"X-Email-Key": key, "Authorization": f"Bearer {key}"},
+                    json=payload,
+                )
+            resp.raise_for_status()
+            return resp.json().get("id", "api-success")
+        except Exception as e:
+            logger.error(f"API Proxy email dispatch failed: {e}")
+
+    # 3. Fallback: Log email details for local testing
+    logger.warning(
+        f"NO EMAIL CREDENTIALS CONFIGURED. Logged enquiry email to stdout:\n"
+        f"To: {to} | Subject: {subject} | Reply-To: {reply_to}"
+    )
+    return "logged-dev-mode"
 
 
 def _enquiry_email_html(doc: dict) -> str:
-    rows = [
-        ("Name", doc["name"]), ("Company", doc["company"]), ("Country", doc["country"]),
-        ("Email", doc["email"]), ("Phone / WhatsApp", doc["phone"]), ("Product", doc["product"]),
-        ("Item Code", doc["itemCode"]), ("Quantity", doc["quantity"]), ("Message", doc["message"]),
-        ("Source", doc["source"]),
-    ]
-    trs = "".join(
-        f'<tr><td style="padding:8px 12px;border:1px solid #e2e8f0;font-size:13px;color:#374151;font-weight:600">{escape(k)}</td>'
-        f'<td style="padding:8px 12px;border:1px solid #e2e8f0;font-size:13px;color:#111827">{escape(str(v) or "-")}</td></tr>'
-        for k, v in rows
-    )
-    return (
-        '<table role="presentation" width="100%" style="background:#f8fafc;padding:24px">'
-        '<tr><td style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">'
-        f'<p style="font-size:18px;font-weight:700;color:#111827">New enquiry received — {escape(EMAIL_FROM_NAME)}</p>'
-        f'<table role="presentation" width="100%" style="border-collapse:collapse;background:#ffffff">{trs}</table>'
-        f'<p style="font-size:12px;color:#94a3b8;margin-top:16px">Sent by {escape(EMAIL_FROM_NAME)} website enquiry system.</p>'
-        '</td></tr></table>'
-    )
+    name = escape(str(doc.get("name", "")).strip())
+    company = escape(str(doc.get("company", "")).strip()) or "N/A"
+    email = escape(str(doc.get("email", "")).strip())
+    phone = escape(str(doc.get("phone", "")).strip()) or "N/A"
+    product = escape(str(doc.get("product", "")).strip()) or "General Enquiry"
+    quantity = escape(str(doc.get("quantity", "")).strip()) or "N/A"
+    message = escape(str(doc.get("message", "")).strip()) or "N/A"
+
+    return f"""
+    <div style="font-family: Arial, sans-serif; max-width: 600px; color: #1e293b; background: #ffffff; padding: 24px; border: 1px solid #e2e8f0; border-radius: 6px;">
+      <h2 style="color: #0f172a; border-bottom: 2px solid #ea580c; padding-bottom: 10px; margin-top: 0;">NEW QUOTE REQUEST</h2>
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 16px; margin-bottom: 20px; font-size: 14px;">
+        <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold; width: 140px; border: 1px solid #e2e8f0;">Name:</td><td style="padding: 10px; border: 1px solid #e2e8f0;">{name}</td></tr>
+        <tr><td style="padding: 10px; font-weight: bold; border: 1px solid #e2e8f0;">Company:</td><td style="padding: 10px; border: 1px solid #e2e8f0;">{company}</td></tr>
+        <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold; border: 1px solid #e2e8f0;">Email:</td><td style="padding: 10px; border: 1px solid #e2e8f0;"><a href="mailto:{email}" style="color: #ea580c;">{email}</a></td></tr>
+        <tr><td style="padding: 10px; font-weight: bold; border: 1px solid #e2e8f0;">Phone:</td><td style="padding: 10px; border: 1px solid #e2e8f0;">{phone}</td></tr>
+        <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold; border: 1px solid #e2e8f0;">Product:</td><td style="padding: 10px; border: 1px solid #e2e8f0;">{product}</td></tr>
+        <tr><td style="padding: 10px; font-weight: bold; border: 1px solid #e2e8f0;">Quantity:</td><td style="padding: 10px; border: 1px solid #e2e8f0;">{quantity}</td></tr>
+        <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold; border: 1px solid #e2e8f0;">Requirements:</td><td style="padding: 10px; border: 1px solid #e2e8f0; white-space: pre-wrap;">{message}</td></tr>
+      </table>
+
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 0;">
+        <strong>Website:</strong> Shrihaan Cast & Forge Pvt Ltd (<a href="https://www.shrihaancastforge.com/" style="color: #ea580c; text-decoration: none;">https://www.shrihaancastforge.com/</a>)
+      </p>
+    </div>
+    """
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 
 class EnquiryCreate(BaseModel):
-    name: str
+    name: str = Field(..., min_length=1)
     company: Optional[str] = ""
     country: Optional[str] = ""
     email: EmailStr
-    phone: Optional[str] = ""
-    product: Optional[str] = ""
+    phone: str = Field(..., min_length=1)
+    product: str = Field(..., min_length=1)
     itemCode: Optional[str] = ""
     quantity: Optional[str] = ""
-    message: Optional[str] = ""
+    message: str = Field(..., min_length=1)
     source: Optional[str] = "quote"
+    hp_field: Optional[str] = ""
 
 
 class Enquiry(BaseModel):
@@ -194,20 +261,29 @@ async def root():
 
 @api_router.post("/enquiries", response_model=Enquiry)
 async def create_enquiry(input: EnquiryCreate):
-    obj = Enquiry(**input.model_dump())
+    # Spam honeypot check
+    if input.hp_field and input.hp_field.strip():
+        logger.info("Spam honeypot triggered; ignoring submission.")
+        return Enquiry(**input.model_dump(exclude={'hp_field'}))
+
+    obj = Enquiry(**input.model_dump(exclude={'hp_field'}))
     doc = obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
     await db.enquiries.insert_one(doc)
-    if OWNER_EMAIL:
-        try:
-            label = doc['product'] or 'Website Contact'
-            await send_email(
-                to=OWNER_EMAIL,
-                subject=f"New Enquiry: {label} — {doc['name']}",
-                html=_enquiry_email_html(doc),
-            )
-        except Exception as e:
-            logger.error(f"Enquiry notification email failed: {e}")
+
+    target_email = OWNER_EMAIL or "sales@shrihaancastforge.com"
+    product_name = input.product.strip() or "General Enquiry"
+    subject = f"New Quote Request - {product_name}"
+
+    try:
+        await send_email(
+            to=target_email,
+            subject=subject,
+            html=_enquiry_email_html(doc),
+            reply_to=doc['email'],
+        )
+    except Exception as e:
+        logger.error(f"Enquiry notification email failed: {e}")
     return obj
 
 
@@ -278,10 +354,10 @@ async def seed_admin():
         await db.users.update_one({"email": ADMIN_EMAIL}, {"$set": {"password_hash": hash_password(ADMIN_PASSWORD)}})
 
 
-EMERGENT_LLM_KEY = os.environ["EMERGENT_LLM_KEY"]
-CATALOGUE_CONTEXT = (ROOT_DIR / 'catalogue_context.txt').read_text()
+EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY", "")
+CATALOGUE_CONTEXT = (ROOT_DIR / 'catalogue_context.txt').read_text(encoding='utf-8') if (ROOT_DIR / 'catalogue_context.txt').exists() else ""
 
-ASSISTANT_SYSTEM = f"""You are the AI Product Assistant on the SHRIHAAN CAST & FORGE PVT. LTD. website — a B2B manufacturer of casting, forging, scaffolding, shoring and industrial engineering products.
+ASSISTANT_SYSTEM = f"""You are the AI Product Assistant on the SHRIHAAN CAST & FORGE PVT. LTD. website — a B2B manufacturer of forging, casting, scaffolding, shoring and industrial engineering products.
 
 STRICT RULES:
 - Answer ONLY using the catalogue data below. Never invent specifications, dimensions, weights, materials, load capacities, certifications or prices.
@@ -312,6 +388,13 @@ async def assistant_chat(input: ChatInput):
     recent = history[-9:]
     convo = "\n".join(f"{'Buyer' if h['role'] == 'user' else 'Assistant'}: {h['text']}" for h in recent[:-1])
     prompt = f"{convo}\nBuyer: {msg}" if convo else msg
+
+    if not LlmChat or not EMERGENT_LLM_KEY:
+        async def fallback_generator():
+            yield f"data: {_json.dumps({'t': 'AI Assistant is offline. Please submit an enquiry via Request a Quote or contact sales.'})}\n\n"
+            yield "data: [DONE]\n\n"
+        return StreamingResponse(fallback_generator(), media_type="text/event-stream",
+                                 headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
     chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=input.session_id, system_message=ASSISTANT_SYSTEM)
     chat.with_model("gemini", "gemini-3.5-flash")
