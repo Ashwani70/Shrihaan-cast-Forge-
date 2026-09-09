@@ -60,7 +60,7 @@ export const ProductBrowser = ({ onQuote, fixedCategory = null, title = 'Product
           <p className="text-sm text-secondary mt-2">Try a different search term or category filter.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch" data-testid="product-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 items-stretch" data-testid="product-grid">
           {filtered.map((p, i) => (
             <ProductCard key={p.slug} product={p} onQuote={onQuote} index={i} />
           ))}
