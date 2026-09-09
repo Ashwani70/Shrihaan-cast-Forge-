@@ -7,8 +7,9 @@ import { DIVISIONS } from '../data/products';
 const NAV = [
   { to: '/', label: 'Home' },
   { to: '/products', label: 'Products', dropdown: true },
-  { to: '/#industries', label: 'Industries', anchor: 'industries' },
-  { to: '/#quality', label: 'Quality', anchor: 'quality' },
+  { to: '/capabilities', label: 'Capabilities' },
+  { to: '/industries', label: 'Industries' },
+  { to: '/quality', label: 'Quality' },
   { to: '/catalogue', label: 'Catalogue' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },

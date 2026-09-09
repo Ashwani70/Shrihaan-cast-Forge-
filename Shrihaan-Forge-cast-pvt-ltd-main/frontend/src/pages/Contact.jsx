@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { MapPin, Mail, Phone } from 'lucide-react';
+import { MapPin, Mail, Phone, Clock, Globe } from 'lucide-react';
+import { SEO, DOMAIN, ORGANIZATION_SCHEMA } from '../components/SEO';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -39,19 +40,44 @@ export default function Contact({ onQuote }) {
     }
   };
 
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      ORGANIZATION_SCHEMA,
+      {
+        '@type': 'ContactPage',
+        '@id': `${DOMAIN}/contact#webpage`,
+        url: `${DOMAIN}/contact`,
+        name: 'Contact Forging Manufacturer in India | Shrihaan Cast & Forge',
+        description:
+          'Contact Shrihaan Cast & Forge Pvt. Ltd. manufacturing unit in Ludhiana, Punjab, India for technical enquiries, custom forging quotes, and export orders.',
+      },
+    ],
+  };
+
   return (
     <div data-testid="contact-page">
+      <SEO
+        title="Contact Forging Manufacturer in India | Shrihaan Cast & Forge"
+        description="Get in touch with Shrihaan Cast & Forge Pvt. Ltd. in Ludhiana, Punjab, India for B2B enquiries, custom forging solutions, scaffolding product pricing, and international export orders."
+        keywords="Contact Shrihaan Cast & Forge, forging supplier contact Ludhiana, steel forging quote, scaffolding manufacturer address Ludhiana Punjab, export enquiry forging"
+        canonical="/contact"
+        schema={schema}
+      />
+
       <div className="bg-primary">
         <div className="container-x py-16">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Contact</span>
-          <h1 className="mt-2 font-heading font-extrabold text-3xl md:text-4xl text-white">Contact SHRIHAAN CAST &amp; FORGE PVT. LTD.</h1>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Contact &amp; Location</span>
+          <h1 className="mt-2 font-heading font-extrabold text-3xl md:text-4xl text-white">
+            Contact SHRIHAAN CAST &amp; FORGE PVT. LTD.
+          </h1>
           <p className="mt-3 text-slate-300 max-w-2xl text-sm md:text-base">
-            Send us your product requirements, quantities and destination — our team will respond with specifications, pricing and lead times.
+            Send us your product requirements, quantities and destination — our engineering team will respond with specifications, pricing and lead times.
           </p>
         </div>
       </div>
 
-      <div className="section-pad">
+      <div className="section-pad bg-white">
         <div className="container-x grid lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2 bg-white border border-border p-6 md:p-8">
             <h2 className="font-heading font-bold text-xl text-primary mb-6">Send an Enquiry</h2>
@@ -63,7 +89,7 @@ export default function Contact({ onQuote }) {
               <Field label="Phone / WhatsApp"><input data-testid="contact-phone" className={inputCls} value={form.phone} onChange={set('phone')} /></Field>
               <Field label="Quantity"><input data-testid="contact-quantity" className={inputCls} value={form.quantity} onChange={set('quantity')} /></Field>
               <div className="sm:col-span-2">
-                <Field label="Product Interest"><input data-testid="contact-product" className={inputCls} placeholder="e.g. Ringlock System, Steel Props, Couplers…" value={form.product} onChange={set('product')} /></Field>
+                <Field label="Product Interest"><input data-testid="contact-product" className={inputCls} placeholder="e.g. Ringlock System, Steel Props, Couplers, Tractor Parts…" value={form.product} onChange={set('product')} /></Field>
               </div>
               <div className="sm:col-span-2">
                 <Field label="Message"><textarea data-testid="contact-message" rows={5} className={inputCls} value={form.message} onChange={set('message')} /></Field>
@@ -90,15 +116,17 @@ export default function Contact({ onQuote }) {
           </div>
 
           <div className="space-y-5">
-            <div className="bg-primary p-7 text-slate-300" data-testid="contact-info-card">
+            <div className="bg-primary p-7 text-slate-300 rounded-sm" data-testid="contact-info-card">
               <h3 className="font-heading font-bold text-white text-lg">Head Office &amp; Works</h3>
               <ul className="mt-5 space-y-4 text-sm">
                 <li className="flex gap-3"><MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" /><span>Gurdev Nagar Estate Sahnewal, Dehlon Road, Paddi, Ludhiana, Punjab, India - 141206</span></li>
                 <li className="flex gap-3"><Mail className="w-4 h-4 text-accent shrink-0 mt-0.5" /><a href="mailto:sales@shrihaancastforge.com" className="hover:text-accent transition-colors">sales@shrihaancastforge.com</a></li>
                 <li className="flex gap-3"><Phone className="w-4 h-4 text-accent shrink-0 mt-0.5" /><a href="tel:+919115942100" className="hover:text-accent transition-colors">+91-9115942100</a></li>
+                <li className="flex gap-3"><Clock className="w-4 h-4 text-accent shrink-0 mt-0.5" /><span>Monday – Saturday: 9:00 AM – 6:30 PM (IST)</span></li>
+                <li className="flex gap-3"><Globe className="w-4 h-4 text-accent shrink-0 mt-0.5" /><span>Supply Areas: All India + Export to Europe, Americas, Middle East &amp; Asia</span></li>
               </ul>
             </div>
-            <div className="bg-white border border-border p-7">
+            <div className="bg-white border border-border p-7 rounded-sm">
               <h3 className="font-heading font-bold text-primary">For Faster Quotes</h3>
               <p className="mt-2 text-sm text-secondary leading-relaxed">
                 Include the item code from our catalogue, required quantity and destination country. Item codes are listed on every product page.

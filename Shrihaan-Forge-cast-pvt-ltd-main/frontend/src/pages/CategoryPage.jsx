@@ -3,14 +3,40 @@ import { Link, useParams, Navigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { getCategory } from '../data/products';
 import { ProductBrowser } from './Products';
+import { SEO, DOMAIN } from '../components/SEO';
 
 export default function CategoryPage({ onQuote }) {
   const { section } = useParams();
   const cat = getCategory(section);
   if (!cat) return <Navigate to="/products" replace />;
 
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${DOMAIN}/products/${cat.slug}#collection`,
+    url: `${DOMAIN}/products/${cat.slug}`,
+    name: `${cat.name} | Shrihaan Cast & Forge`,
+    description: cat.description,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: DOMAIN },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: `${DOMAIN}/products` },
+        { '@type': 'ListItem', position: 3, name: cat.name, item: `${DOMAIN}/products/${cat.slug}` },
+      ],
+    },
+  };
+
   return (
     <div data-testid={`category-page-${cat.slug}`}>
+      <SEO
+        title={`${cat.name} Manufacturer & Supplier | Shrihaan Cast & Forge`}
+        description={`High quality ${cat.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd. ${cat.description}`}
+        keywords={`${cat.name}, ${cat.name} manufacturer India, ${cat.name} supplier, scaffolding components, steel forging manufacturer`}
+        canonical={`/products/${cat.slug}`}
+        schema={schema}
+      />
+
       <div className="bg-primary">
         <div className="container-x py-14">
           <nav className="flex items-center gap-1.5 text-xs text-slate-400 mb-5" data-testid="breadcrumbs">
@@ -27,7 +53,7 @@ export default function CategoryPage({ onQuote }) {
               <p className="mt-4 text-slate-300 text-sm md:text-base leading-relaxed max-w-2xl">{cat.description}</p>
             </div>
             <div className="hidden md:flex w-64 h-44 bg-white/5 border border-white/10 items-center justify-center p-4 shrink-0">
-              <img src={cat.image} alt={cat.name} className="max-h-full max-w-full object-contain" />
+              <img src={cat.image} alt={`${cat.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`} className="max-h-full max-w-full object-contain" />
             </div>
           </div>
         </div>

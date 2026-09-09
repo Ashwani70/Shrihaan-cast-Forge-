@@ -22,9 +22,18 @@ export const Footer = ({ onQuote }) => (
       <div>
         <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
         <ul className="space-y-2 text-sm">
-          {[['/', 'Home'], ['/about', 'About'], ['/products', 'Products'], ['/#industries', 'Industries'], ['/#quality', 'Quality'], ['/catalogue', 'Catalogue'], ['/contact', 'Contact']].map(([to, label]) => (
+          {[
+            ['/', 'Home'],
+            ['/about', 'About Us'],
+            ['/products', 'Products'],
+            ['/capabilities', 'Capabilities'],
+            ['/industries', 'Industries'],
+            ['/quality', 'Quality'],
+            ['/catalogue', 'Catalogue'],
+            ['/contact', 'Contact Us'],
+          ].map(([to, label]) => (
             <li key={label}>
-              <Link to={to} data-testid={`footer-link-${label.toLowerCase()}`} className="hover:text-accent transition-colors duration-150">
+              <Link to={to} data-testid={`footer-link-${label.toLowerCase().replace(/\s/g, '-')}`} className="hover:text-accent transition-colors duration-150">
                 {label}
               </Link>
             </li>

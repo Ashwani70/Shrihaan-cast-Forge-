@@ -1,13 +1,32 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Building2, Landmark, HardHat, Layers, Factory, Wrench, Crosshair, Repeat, ShieldCheck, Settings, ClipboardCheck, PackageCheck } from 'lucide-react';
+import {
+  ArrowRight,
+  Building2,
+  Landmark,
+  HardHat,
+  Layers,
+  Factory,
+  Wrench,
+  Crosshair,
+  Repeat,
+  ShieldCheck,
+  Settings,
+  ClipboardCheck,
+  PackageCheck,
+  ChevronDown,
+  Globe,
+  Truck,
+  CheckCircle2,
+} from 'lucide-react';
 import { PRODUCTS, DIVISIONS, visibleScaffolding } from '../data/products';
 import { TRACTOR_PARTS, visibleProducts } from '../data/tractorParts';
 import { ProductCard } from '../components/ProductCard';
 import { TractorCard } from './TractorParts';
 import { Reveal, MaskedLine, EASE } from '../components/Reveal';
 import { Marquee } from '../components/Marquee';
+import { SEO, DOMAIN, ORGANIZATION_SCHEMA } from '../components/SEO';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1600684249816-38cdfcf95c17?q=85&w=1600';
 const QUALITY_IMG = 'https://images.unsplash.com/photo-1700727448575-6f1680cd7d75?q=85&w=800';
@@ -41,9 +60,57 @@ const SectionTitle = ({ kicker, title, light = false, index }) => (
   </div>
 );
 
-const MARQUEE_ITEMS = ['Ringlock System', 'Cuplock System', 'Kwikstage System', 'Steel Props', 'Screw Base Jacks', 'Forged Couplers', 'Walk Boards', 'Frame Systems', 'Formwork Accessories'];
+const MARQUEE_ITEMS = [
+  'Forging Manufacturer India',
+  'Steel Forging Manufacturer',
+  'Ringlock System',
+  'Cuplock System',
+  'Kwikstage System',
+  'Steel Props',
+  'Screw Base Jacks',
+  'Forged Couplers',
+  'Tractor Parts',
+  'Formwork Accessories',
+];
+
+const FAQS = [
+  {
+    q: 'What does Shrihaan Cast & Forge manufacture?',
+    a: 'Shrihaan Cast & Forge Pvt. Ltd. is a leading forging manufacturer in India producing precision forged steel components, industrial forgings, scaffolding systems (Ringlock, Cuplock, Kwikstage), steel props, forged couplers, and agricultural tractor components.',
+  },
+  {
+    q: 'What types of forged components do you manufacture?',
+    a: 'We manufacture closed die forgings, drop forged steel components, precision machined parts, forged levers, brackets, hitch pins, top link pins, scaffold cups, and drop forged couplers according to EN-74 and BS-1139 standards.',
+  },
+  {
+    q: 'Do you manufacture custom forged components?',
+    a: 'Yes, we provide custom forging solutions based on customer technical drawings, CAD models, material specifications, and exact dimensional tolerances for OEM and industrial applications.',
+  },
+  {
+    q: 'What materials can be forged?',
+    a: 'We forge carbon steel, alloy steel, stainless steel, and high-tensile steel grades such as S355, 20MnCr5, EN8, EN9, EN19, EN24, SAE 1018, and SAE 1045 depending on application requirements.',
+  },
+  {
+    q: 'What industries do you supply?',
+    a: 'We supply high-strength forged components to automotive OEMs, agricultural tractor manufacturers, construction contractors, civil infrastructure projects, scaffolding companies, and heavy engineering sectors.',
+  },
+  {
+    q: 'Do you supply forged components internationally?',
+    a: 'Yes, we supply B2B customers across India and export high-precision forged components and scaffolding systems to international markets in Europe, Middle East, Americas, and Asia-Pacific.',
+  },
+  {
+    q: 'What quality inspections are available?',
+    a: 'Our quality assurance process includes optical spectro chemical analysis, CMM dimensional verification, Universal Testing Machine (UTM) tensile testing, Hardness testing, Ultrasonic non-destructive testing (NDT), and Magnetic Particle Inspection (MPI). Mill Test Certificates (EN 10204 3.1) are provided with dispatch.',
+  },
+  {
+    q: 'How can I request a quotation?',
+    a: 'You can request a competitive quotation by filling out our online enquiry form on the Contact page or clicking "Request a Quote", specifying product codes, quantities, and destination.',
+  },
+];
 
 export default function Home({ onQuote }) {
+  const [openFaq, setOpenFaq] = useState(null);
+
   const featuredScaffolding = visibleScaffolding(
     PRODUCTS.filter((p) => ['ringlock-vertical', 'light-duty-prop', 'british-type-right-angle-coupler', 'cuplock-vertical'].includes(p.slug))
   );
@@ -57,14 +124,51 @@ export default function Home({ onQuote }) {
   const heroContentY = useTransform(scrollYProgress, [0, 1], ['0%', '38%']);
   const heroFade = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
 
+  // Combined Schema
+  const homepageSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      ORGANIZATION_SCHEMA,
+      {
+        '@type': 'WebPage',
+        '@id': `${DOMAIN}/#webpage`,
+        url: DOMAIN,
+        name: 'Leading Forging Manufacturer in India – Shrihaan Cast & Forge Pvt. Ltd.',
+        description:
+          'Shrihaan Cast & Forge Pvt. Ltd. is a premier steel forging manufacturer in India producing precision forged components, scaffolding systems, and agricultural tractor parts.',
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${DOMAIN}/#faqpage`,
+        mainEntity: FAQS.map((faq) => ({
+          '@type': 'Question',
+          name: faq.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.a,
+          },
+        })),
+      },
+    ],
+  };
+
   return (
     <div data-testid="home-page">
+      <SEO
+        title="Forging Manufacturer in India | Shrihaan Cast & Forge Pvt. Ltd."
+        description="Shrihaan Cast & Forge Pvt. Ltd. is a leading steel forging manufacturer in India producing precision forged components, industrial forgings, scaffolding systems, and agricultural tractor parts for Indian and global markets."
+        keywords="forging manufacturer in India, steel forging manufacturer, forging company in India, industrial forging manufacturer, precision forging manufacturer, forged components manufacturer, custom forging manufacturer, steel forging parts, automotive forging components, engineering forging components, closed die forging, open die forging, precision forged components, industrial forged parts, forged steel components, forging supplier India, forging exporter India"
+        canonical="/"
+        schema={homepageSchema}
+      />
+
       {/* HERO — cinematic */}
       <section ref={heroRef} className="relative blueprint-grid overflow-hidden" data-testid="hero-section">
         <motion.img
           src={HERO_IMG}
-          alt="Industrial forging press"
+          alt="Industrial forging press manufacturing steel components by Shrihaan Cast & Forge Pvt. Ltd."
           style={{ y: heroImgY }}
+          loading="eager"
           className="absolute inset-0 w-full h-full object-cover opacity-45 scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0b1220] via-[#0b1220]/80 to-[#0b1220]/30 pointer-events-none" />
@@ -84,26 +188,32 @@ export default function Home({ onQuote }) {
         </div>
 
         <motion.div style={{ y: heroContentY, opacity: heroFade }} className="container-x relative py-24 md:py-36 z-10">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <motion.span
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE }}
               className="inline-block text-xs font-bold uppercase tracking-[0.22em] text-accent border border-accent/40 px-3 py-1.5 rounded-sm"
             >
-              Casting · Forging · Scaffolding · Shoring
+              Steel Forging Manufacturer · India &amp; Global Export
             </motion.span>
-            <h1 className="mt-6 font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.05]">
-              <MaskedLine delay={0.15}>PRECISION ENGINEERED.</MaskedLine>
-              <MaskedLine delay={0.32} className="text-accent">BUILT FOR PERFORMANCE.</MaskedLine>
+            
+            {/* Required SEO H1 */}
+            <h1 className="mt-6 font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.1]">
+              Leading Forging Manufacturer in India – Shrihaan Cast &amp; Forge Pvt. Ltd.
             </h1>
+            
+            <p className="mt-4 font-heading font-extrabold text-xl sm:text-2xl text-accent">
+              PRECISION ENGINEERED. BUILT FOR PERFORMANCE.
+            </p>
+
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
-              className="mt-6 text-base md:text-lg text-slate-300 leading-relaxed max-w-xl"
+              className="mt-5 text-base md:text-lg text-slate-300 leading-relaxed max-w-2xl"
             >
-              Advanced casting, forging and engineering solutions designed for demanding industrial and construction applications.
+              Advanced closed die forging, steel component manufacturing, modular scaffolding systems, and precision engineered tractor parts for demanding B2B applications.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -135,7 +245,12 @@ export default function Home({ onQuote }) {
       {/* INTRO STRIP */}
       <section className="bg-white border-b border-border">
         <div className="container-x py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {[['5', 'Product Divisions'], [String(PRODUCTS.length + TRACTOR_PARTS.length) + '+', 'Products'], ['EN-74 / BS-1139', 'Coupler Standard'], ['S355', 'High-Tensile Steel Tubes']].map(([v, l], i) => (
+          {[
+            ['5', 'Product Divisions'],
+            [String(PRODUCTS.length + TRACTOR_PARTS.length) + '+', 'Products'],
+            ['EN-74 / BS-1139', 'Coupler Standard'],
+            ['S355', 'High-Tensile Steel Tubes'],
+          ].map(([v, l], i) => (
             <Reveal key={l} delay={i * 0.08}>
               <div className="font-heading font-extrabold text-2xl md:text-3xl text-primary">{v}</div>
               <div className="text-xs uppercase tracking-wider text-secondary mt-1">{l}</div>
@@ -148,23 +263,29 @@ export default function Home({ onQuote }) {
       <section className="section-pad" data-testid="home-about">
         <div className="container-x grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
-            <img src="/products/forging-factory-banner.webp" alt="Precision forging manufacturing plant" className="w-full border border-border object-cover aspect-[4/3]" />
+            <img
+              src="/products/forging-factory-banner.webp"
+              alt="Precision steel forging manufacturing plant of Shrihaan Cast & Forge Pvt. Ltd. in Ludhiana, Punjab, India"
+              loading="lazy"
+              className="w-full border border-border object-cover aspect-[4/3]"
+            />
             <div className="absolute -bottom-5 -right-5 bg-accent text-accent-foreground px-6 py-4 hidden md:block">
               <div className="font-heading font-extrabold text-lg leading-tight">SHRIHAAN</div>
               <div className="text-[10px] font-bold tracking-[0.2em] uppercase">Cast &amp; Forge Pvt. Ltd.</div>
             </div>
           </div>
           <div>
-            <SectionTitle kicker="About Us · Forging Components Manufacturer" title="An Engineering-Focused Forging Manufacturer" />
+            <SectionTitle kicker="About Us · Forging Company in India" title="Engineering-Focused Steel Forging Manufacturer" />
             <p className="text-secondary leading-relaxed text-sm md:text-base">
-              SHRIHAAN CAST &amp; FORGE PVT. LTD. is an engineering-focused manufacturer of forged components serving automotive, tractor, agricultural and industrial applications. We manufacture high-strength, precision-forged components designed to meet demanding OEM and industrial requirements.
+              <strong>SHRIHAAN CAST &amp; FORGE PVT. LTD.</strong> is an engineering-focused <strong>steel forging manufacturer in India</strong> serving automotive, agricultural tractor, construction, and industrial engineering sectors. Located in Ludhiana, Punjab, we produce high-strength precision forged components designed to meet demanding OEM and international standard requirements.
             </p>
             <ul className="mt-6 space-y-3">
               {[
-                'Precision forged components for demanding applications',
-                'Automotive, tractor and agricultural components',
-                'Consistent quality and dimensional accuracy',
-                'Custom forging solutions for OEM requirements'
+                'Precision forged components & closed die forging solutions',
+                'Automotive, agricultural tractor and heavy engineering components',
+                'Strict quality inspection with EN-74 / BS-1139 standards',
+                'Custom forging manufacturer for OEM drawings & specifications',
+                'Pan-India delivery & global export capabilities',
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3 text-sm text-foreground">
                   <span className="mt-1.5 w-2 h-2 bg-accent shrink-0" /> {t}
@@ -182,24 +303,57 @@ export default function Home({ onQuote }) {
         </div>
       </section>
 
+      {/* FORGING CAPABILITIES & WHAT WE MANUFACTURE */}
+      <section className="py-16 bg-slate-50 border-y border-slate-200">
+        <div className="container-x">
+          <SectionTitle kicker="Manufacturing Scope" title="What We Manufacture & Our Forging Capabilities" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 border border-slate-200 rounded-sm">
+              <h3 className="font-heading font-bold text-xl text-primary mb-3">Steel Forgings &amp; Industrial Parts</h3>
+              <p className="text-sm text-secondary leading-relaxed mb-4">
+                Closed-die steel forgings engineered for high tensile strength and grain flow alignment. Including forged levers, brackets, eyes, handles, and custom industrial steel components.
+              </p>
+              <Link to="/capabilities" className="text-xs font-bold text-accent uppercase tracking-wider inline-flex items-center gap-1">
+                View Capabilities <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+            <div className="bg-white p-6 border border-slate-200 rounded-sm">
+              <h3 className="font-heading font-bold text-xl text-primary mb-3">Scaffolding &amp; Shoring Systems</h3>
+              <p className="text-sm text-secondary leading-relaxed mb-4">
+                Complete modular Ringlock, Cuplock, Kwikstage systems, heavy-duty adjustable steel props, drop forged couplers, screw base jacks, and walk boards engineered for civil infrastructure.
+              </p>
+              <Link to="/products" className="text-xs font-bold text-accent uppercase tracking-wider inline-flex items-center gap-1">
+                Explore Scaffolding <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+            <div className="bg-white p-6 border border-slate-200 rounded-sm">
+              <h3 className="font-heading font-bold text-xl text-primary mb-3">Tractor &amp; Agricultural Components</h3>
+              <p className="text-sm text-secondary leading-relaxed mb-4">
+                Forged agricultural tractor parts including bale spears, double tine guards, eye rods, hitch pins, top link pins, linch pins, and three-point linkage accessories for OEM suppliers.
+              </p>
+              <Link to="/tractor-parts" className="text-xs font-bold text-accent uppercase tracking-wider inline-flex items-center gap-1">
+                Explore Tractor Parts <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* PRODUCT RANGE — divisions */}
       <section className="relative py-20 md:py-24 bg-[#071322] border-y border-slate-800/80 overflow-hidden" data-testid="home-categories">
-        {/* Subtle background ambient illumination */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-900/15 via-transparent to-transparent pointer-events-none" />
 
         <div className="container-x relative z-10">
-          {/* Centered Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <span className="text-xs font-extrabold uppercase tracking-[0.25em] text-teal-400 block mb-3">
-              ENGINEERED PRODUCTS
+              ENGINEERED PRODUCT DIVISIONS
             </span>
             <h2 className="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight">
-              Precision-Built Products for Every Project
+              Precision Forged Components &amp; Systems
             </h2>
             <div className="mt-4 mx-auto h-1 w-16 bg-gradient-to-r from-teal-400 to-cyan-500 rounded-full" />
           </div>
 
-          {/* 5 Vertical Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-stretch">
             {DIVISIONS.map((d, i) => (
               <motion.div
@@ -213,13 +367,12 @@ export default function Home({ onQuote }) {
                   data-testid={`category-card-${d.slug}`}
                   className="group relative flex flex-col h-full rounded-2xl md:rounded-3xl overflow-hidden bg-[#071c2b] border border-teal-500/30 shadow-2xl shadow-black/80 hover:border-teal-400/80 hover:shadow-teal-900/50 transition-all duration-300"
                 >
-                  {/* Top Image Container — 300px desktop height, seamless dark navy studio background */}
                   <div className="relative h-[280px] sm:h-[300px] md:h-[320px] w-full bg-[#0a2334] overflow-hidden flex items-center justify-center p-2 border-b border-teal-500/30">
                     {d.image ? (
                       <img
                         src={d.image}
-                        alt={d.name}
-                        loading="eager"
+                        alt={`${d.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`}
+                        loading="lazy"
                         style={{
                           width: '100%',
                           height: '100%',
@@ -238,7 +391,6 @@ export default function Home({ onQuote }) {
                     )}
                   </div>
 
-                  {/* Bottom Content Container — Teal to Dark Navy gradient with high-contrast text */}
                   <div className="flex-1 flex flex-col justify-between p-6 sm:p-7 bg-gradient-to-b from-[#0a3845] via-[#072432] to-[#04121d] text-white">
                     <div>
                       <h3 className="font-heading font-extrabold text-xl text-white mb-3 group-hover:text-teal-300 transition-colors duration-200">
@@ -251,7 +403,7 @@ export default function Home({ onQuote }) {
 
                     <div className="pt-3 border-t border-teal-500/30 flex items-center justify-between">
                       <span className="inline-flex items-center gap-2 text-sm font-bold text-teal-300 group-hover:text-white transition-colors duration-200">
-                        Know More <ArrowRight className="w-4 h-4 text-teal-400 group-hover:translate-x-1 transition-transform duration-200" />
+                        Explore Range <ArrowRight className="w-4 h-4 text-teal-400 group-hover:translate-x-1 transition-transform duration-200" />
                       </span>
                     </div>
                   </div>
@@ -260,7 +412,6 @@ export default function Home({ onQuote }) {
             ))}
           </div>
 
-          {/* View All Products Link */}
           <div className="mt-12 text-center">
             <Link
               to="/products"
@@ -277,7 +428,7 @@ export default function Home({ onQuote }) {
       <section className="section-pad" data-testid="home-featured">
         <div className="container-x">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
-            <SectionTitle kicker="Engineered Products" title="Featured Products" />
+            <SectionTitle kicker="Engineered Components" title="Featured Forged &amp; Scaffolding Products" />
             <Link to="/catalogue" data-testid="featured-catalogue-link" className="text-sm font-bold uppercase tracking-wide text-accent hover:text-accent/80 inline-flex items-center gap-1.5 mb-10">
               Browse Catalogue <ArrowRight className="w-4 h-4" />
             </Link>
@@ -299,8 +450,8 @@ export default function Home({ onQuote }) {
           <SectionTitle kicker="Applications" title="Industries We Serve" light />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10">
             {INDUSTRIES.map((ind, i) => (
-              <Reveal key={ind.name} delay={i * 0.07} className="h-full">
-                <div data-testid={`industry-${ind.name.toLowerCase().replace(/\s/g, '-')}`} className="bg-primary p-8 group hover:bg-[#1b2436] transition-colors duration-300 h-full">
+              <Reveal key={ind.name} delay={i * 0.06}>
+                <div data-testid={`industry-card-${ind.name.toLowerCase()}`} className="group bg-primary p-8 h-full transition-colors duration-300 hover:bg-[#121c2e]">
                   <ind.icon className="w-8 h-8 text-accent transition-transform duration-300 group-hover:-translate-y-1" strokeWidth={1.6} />
                   <h3 className="mt-4 font-heading font-bold text-white text-lg">{ind.name}</h3>
                   <p className="mt-2 text-sm text-slate-400 leading-relaxed">{ind.text}</p>
@@ -315,12 +466,17 @@ export default function Home({ onQuote }) {
       <section id="quality" className="section-pad bg-white border-b border-border" data-testid="quality-section">
         <div className="container-x grid lg:grid-cols-5 gap-12">
           <div className="lg:col-span-2">
-            <SectionTitle kicker="Quality & Engineering" title="Uncompromising Quality, By Design" />
+            <SectionTitle kicker="Quality &amp; Engineering" title="Uncompromising Quality, By Design" />
             <p className="text-secondary text-sm md:text-base leading-relaxed">
               We deliver uncompromising quality through precision manufacturing, robust materials, and strict standards — ensuring reliable, durable engineering solutions that perform across demanding industrial applications.
             </p>
             <Reveal delay={0.15}>
-              <img src={QUALITY_IMG} alt="Quality control inspection" loading="lazy" className="mt-8 w-full aspect-[4/3] object-cover border border-border" />
+              <img
+                src={QUALITY_IMG}
+                alt="Quality control inspection of forged steel components at Shrihaan Cast & Forge Pvt. Ltd."
+                loading="lazy"
+                className="mt-8 w-full aspect-[4/3] object-cover border border-border"
+              />
             </Reveal>
           </div>
           <div className="lg:col-span-3 self-start border-t border-border">
@@ -340,6 +496,61 @@ export default function Home({ onQuote }) {
                 </div>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DOMESTIC & EXPORT B2B CAPABILITIES */}
+      <section className="py-16 bg-slate-900 text-white">
+        <div className="container-x grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Global Supply Chain</span>
+            <h2 className="mt-2 font-heading font-extrabold text-3xl text-white">
+              Pan-India Distribution &amp; Worldwide Export Capabilities
+            </h2>
+            <p className="mt-4 text-slate-300 text-sm md:text-base leading-relaxed">
+              Based in Ludhiana, Punjab, India, <strong>Shrihaan Cast &amp; Forge Pvt. Ltd.</strong> supplies OEM manufacturers, distributors, and construction firms across India while maintaining active export channels to B2B customers across international markets.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-slate-800 p-5 border border-slate-700 rounded-sm">
+              <Globe className="w-6 h-6 text-accent mb-2" />
+              <h3 className="font-bold text-white text-sm">International Export</h3>
+              <p className="text-xs text-slate-400 mt-1">Exporting to Europe, Middle East, Americas &amp; Asia</p>
+            </div>
+            <div className="bg-slate-800 p-5 border border-slate-700 rounded-sm">
+              <Truck className="w-6 h-6 text-accent mb-2" />
+              <h3 className="font-bold text-white text-sm">Pan-India Logistics</h3>
+              <p className="text-xs text-slate-400 mt-1">Fast delivery across all Indian industrial corridors</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VISIBLE FREQUENTLY ASKED QUESTIONS (FAQ) */}
+      <section className="section-pad bg-white border-b border-border" id="faq">
+        <div className="container-x">
+          <SectionTitle kicker="Buyer Enquiries" title="Frequently Asked Questions (FAQs)" />
+          <div className="max-w-4xl mx-auto space-y-4">
+            {FAQS.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div key={faq.q} className="border border-slate-200 rounded-sm overflow-hidden bg-slate-50">
+                  <button
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full p-5 text-left flex items-center justify-between font-heading font-bold text-primary text-base hover:bg-slate-100 transition-colors"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown className={`w-5 h-5 text-accent transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="p-5 pt-0 text-sm text-secondary leading-relaxed bg-white border-t border-slate-100">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

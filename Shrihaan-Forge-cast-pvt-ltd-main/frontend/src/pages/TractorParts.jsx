@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, FileText } from 'lucide-react';
 import { TRACTOR_PARTS, visibleProducts } from '../data/tractorParts';
+import { SEO, DOMAIN } from '../components/SEO';
 
 export const TractorCard = ({ product, onQuote, index = 0 }) => (
   <motion.div
@@ -19,7 +20,7 @@ export const TractorCard = ({ product, onQuote, index = 0 }) => (
         <div className="product-image-container p-2.5">
           <img
             src={product.images[0]}
-            alt={product.name}
+            alt={`precision forged tractor component ${product.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`}
             loading="lazy"
             style={{
               opacity: 1,
@@ -84,14 +85,31 @@ export default function TractorParts({ onQuote }) {
     return list.filter((p) => p.name.toLowerCase().includes(q));
   }, [query]);
 
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${DOMAIN}/tractor-parts#collection`,
+    url: `${DOMAIN}/tractor-parts`,
+    name: 'Tractor & Agricultural Forged Components | Shrihaan Cast & Forge',
+    description: 'High-strength forged agricultural tractor parts, bale spears, tine guards, eye rods, top link pins, and hitch components.',
+  };
+
   return (
     <div data-testid="tractor-parts-page">
+      <SEO
+        title="Tractor & Agricultural Forged Components | Shrihaan Cast & Forge"
+        description="Precision forged tractor and agricultural components, bale spears, double tine guards, eye rods, scaffold cups, hitch pins, and top link pins manufactured by Shrihaan Cast & Forge Pvt. Ltd."
+        keywords="tractor parts manufacturer India, agricultural forging components, bale spear double, tine guard, eye rod, top link pin, linch pin, hitch pin, agricultural machinery parts"
+        canonical="/tractor-parts"
+        schema={schema}
+      />
+
       <div className="bg-primary">
         <div className="container-x py-14">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Tractor Parts</span>
-          <h1 className="mt-2 font-heading font-extrabold text-3xl md:text-4xl text-white">Forging Components for Tractors &amp; Agricultural Equipment</h1>
-          <p className="mt-3 text-slate-300 text-sm md:text-base max-w-2xl">
-            Precision-forged components — high strength, durable and reliable. Search the range below or request a quote for any part.
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Product Range</span>
+          <h1 className="mt-2 font-heading font-extrabold text-3xl md:text-4xl text-white">Tractor &amp; Agricultural Components</h1>
+          <p className="mt-3 text-slate-300 text-sm md:text-base max-w-2xl leading-relaxed">
+            High-strength precision forged components for tractor 3-point linkage systems, implements, and agricultural machinery.
           </p>
         </div>
       </div>
@@ -105,7 +123,7 @@ export default function TractorParts({ onQuote }) {
                 data-testid="tractor-search-input"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search tractor parts…"
+                placeholder="Search tractor components…"
                 className="w-full border border-input pl-9 pr-3 py-2.5 text-sm rounded-sm outline-none focus:ring-2 focus:ring-accent/60 focus:border-accent"
               />
             </div>
@@ -113,18 +131,11 @@ export default function TractorParts({ onQuote }) {
           <p className="text-xs uppercase tracking-wider text-secondary mb-5" data-testid="tractor-results-count">
             Showing {filtered.length} product{filtered.length === 1 ? '' : 's'}
           </p>
-          {filtered.length === 0 ? (
-            <div className="bg-white border border-border p-14 text-center" data-testid="tractor-no-results">
-              <p className="font-heading font-bold text-primary text-lg">No products found</p>
-              <p className="text-sm text-secondary mt-2">Try a different search term.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch" data-testid="tractor-grid">
-              {filtered.map((p, i) => (
-                <TractorCard key={p.slug} product={p} onQuote={onQuote} index={i} />
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch" data-testid="tractor-grid">
+            {filtered.map((p, i) => (
+              <TractorCard key={p.slug} product={p} onQuote={onQuote} index={i} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

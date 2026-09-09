@@ -4,6 +4,7 @@ import { Search } from 'lucide-react';
 import { CATEGORIES, PRODUCTS, visibleScaffolding } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { DivisionCards } from './DivisionPage';
+import { SEO, DOMAIN } from '../components/SEO';
 
 export const ProductBrowser = ({ onQuote, fixedCategory = null, title = 'Product Catalogue', kicker = 'All Products' }) => {
   const [params, setParams] = useSearchParams();
@@ -70,8 +71,26 @@ export const ProductBrowser = ({ onQuote, fixedCategory = null, title = 'Product
 };
 
 export default function Products({ onQuote }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${DOMAIN}/products#webpage`,
+    url: `${DOMAIN}/products`,
+    name: 'Forged Components & Industrial Forgings | Shrihaan Cast & Forge',
+    description:
+      'Explore precision forged components, steel forgings, scaffolding systems, and tractor parts manufactured by Shrihaan Cast & Forge Pvt. Ltd. India.',
+  };
+
   return (
     <div data-testid="products-page" className="section-pad">
+      <SEO
+        title="Forged Components & Industrial Forgings | Shrihaan Cast & Forge"
+        description="Comprehensive product range of precision steel forgings, industrial components, Ringlock, Cuplock scaffolding systems, steel props, drop forged couplers, and tractor agricultural parts manufactured by Shrihaan Cast & Forge Pvt. Ltd."
+        keywords="Forged Components, Industrial Forgings, Steel Forgings Manufacturer, Scaffolding Systems, Ringlock System, Cuplock System, Steel Props, Drop Forged Couplers, Agricultural Tractor Parts"
+        canonical="/products"
+        schema={schema}
+      />
+
       <div className="container-x">
         <div className="mb-10">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Products</span>

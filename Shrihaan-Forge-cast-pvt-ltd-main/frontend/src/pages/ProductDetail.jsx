@@ -4,6 +4,7 @@ import { ChevronRight, Maximize2, Mail } from 'lucide-react';
 import { getCategory, getProduct, productsByCategory, isCompleteScaffolding, visibleScaffolding, AOR } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { ImageLightbox } from '../components/ImageLightbox';
+import { SEO, DOMAIN } from '../components/SEO';
 
 export default function ProductDetail({ onQuote }) {
   const { categorySlug, productSlug } = useParams();
@@ -48,8 +49,59 @@ export default function ProductDetail({ onQuote }) {
   const related = visibleScaffolding(productsByCategory(product.category).filter((p) => p.slug !== product.slug)).slice(0, 4);
   const hasSpecs = Object.keys(product.specs || {}).length > 0;
 
+  const productUrl = `${DOMAIN}/products/${cat.slug}/${product.slug}`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Product',
+        '@id': `${productUrl}#product`,
+        name: product.name,
+        image: gallery.map((img) => (img.startsWith('http') ? img : `${DOMAIN}${img}`)),
+        description: product.description,
+        sku: product.itemCode || product.slug,
+        category: cat.name,
+        brand: {
+          '@type': 'Brand',
+          name: 'Shrihaan Cast & Forge',
+        },
+        offers: {
+          '@type': 'Offer',
+          url: productUrl,
+          priceCurrency: 'INR',
+          availability: 'https://schema.org/InStock',
+          seller: {
+            '@type': 'Organization',
+            name: 'Shrihaan Cast & Forge Pvt. Ltd.',
+          },
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${productUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: DOMAIN },
+          { '@type': 'ListItem', position: 2, name: 'Products', item: `${DOMAIN}/products` },
+          { '@type': 'ListItem', position: 3, name: cat.name, item: `${DOMAIN}/products/${cat.slug}` },
+          { '@type': 'ListItem', position: 4, name: product.name, item: productUrl },
+        ],
+      },
+    ],
+  };
+
+  const altText = `precision forged steel industrial component ${product.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`;
+
   return (
     <div data-testid={`product-detail-${product.slug}`}>
+      <SEO
+        title={`${product.name} | Shrihaan Cast & Forge`}
+        description={`${product.name} (${product.itemCode || ''}) - ${product.description} Manufactured to strict standards by Shrihaan Cast & Forge Pvt. Ltd.`}
+        keywords={`${product.name}, ${product.itemCode || ''}, ${cat.name}, precision forged components, steel forging manufacturer India`}
+        canonical={`/products/${cat.slug}/${product.slug}`}
+        ogImage={gallery[0]}
+        schema={schema}
+      />
+
       <div className="bg-white border-b border-border">
         <div className="container-x py-4">
           <nav className="flex items-center gap-1.5 text-xs text-secondary flex-wrap" data-testid="breadcrumbs">
@@ -75,7 +127,8 @@ export default function ProductDetail({ onQuote }) {
             >
               <img
                 src={gallery[active]}
-                alt={product.name}
+                alt={altText}
+                loading="eager"
                 style={{
                   opacity: 1,
                   filter: 'none',
@@ -103,12 +156,12 @@ export default function ProductDetail({ onQuote }) {
                     onClick={() => setActive(i)}
                     className={`bg-white border aspect-square flex items-center justify-center p-1.5 transition-colors duration-150 ${i === active ? 'border-accent' : 'border-border hover:border-secondary'}`}
                   >
-                    <img src={g} alt={`${product.name} ${i + 1}`} loading="lazy" className="max-h-full max-w-full object-contain" />
+                    <img src={g} alt={`${product.name} view ${i + 1}`} loading="lazy" className="max-h-full max-w-full object-contain" />
                   </button>
                 ))}
               </div>
             )}
-            <p className="mt-3 text-xs text-slate-400">Click the image to open the full-screen viewer with zoom.</p>
+            <p className="mt-3 text-xs text-slate-400">Click image to inspect high-resolution product viewer.</p>
           </div>
 
           {/* Details */}
@@ -201,4 +254,3 @@ export default function ProductDetail({ onQuote }) {
     </div>
   );
 }
-

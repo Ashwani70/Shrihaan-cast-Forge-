@@ -4,6 +4,7 @@ import { ChevronRight, Search, ArrowRight } from 'lucide-react';
 import { DIVISIONS, getDivision, CATEGORIES, categoryCount } from '../data/products';
 import { tractorPartsByDivision, visibleProducts } from '../data/tractorParts';
 import { TractorCard } from './TractorParts';
+import { SEO, DOMAIN } from '../components/SEO';
 
 export const DivisionCards = () => (
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5" data-testid="division-cards">
@@ -18,8 +19,8 @@ export const DivisionCards = () => (
           {d.image ? (
             <img
               src={d.image}
-              alt={d.name}
-              loading="eager"
+              alt={`${d.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`}
+              loading="lazy"
               className="max-h-full max-w-full object-contain filter drop-shadow-md transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
@@ -54,8 +55,33 @@ export default function DivisionPage({ onQuote }) {
   if (!division) return <Navigate to="/products" replace />;
   const title = division.heading || division.name;
 
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${DOMAIN}/products/${division.slug}#collection`,
+    url: `${DOMAIN}/products/${division.slug}`,
+    name: `${title} | Shrihaan Cast & Forge`,
+    description: division.description,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: DOMAIN },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: `${DOMAIN}/products` },
+        { '@type': 'ListItem', position: 3, name: title, item: `${DOMAIN}/products/${division.slug}` },
+      ],
+    },
+  };
+
   return (
     <div data-testid={`division-page-${division.slug}`}>
+      <SEO
+        title={`${title} | Shrihaan Cast & Forge`}
+        description={`${title} - ${division.description} Manufactured by Shrihaan Cast & Forge Pvt. Ltd. India.`}
+        keywords={`${title}, ${division.name}, steel forging manufacturer India, precision forged components`}
+        canonical={`/products/${division.slug}`}
+        schema={schema}
+      />
+
       <div className="bg-primary">
         <div className="container-x py-14">
           <nav className="flex items-center gap-1.5 text-xs text-slate-400 mb-5" data-testid="breadcrumbs">
@@ -99,7 +125,7 @@ export default function DivisionPage({ onQuote }) {
                     <div className="bg-gradient-to-b from-slate-50 to-slate-100 h-44 flex items-center justify-center mb-4 rounded-lg overflow-hidden border border-slate-200/80 p-3">
                       <img
                         src={c.image}
-                        alt={c.name}
+                        alt={`${c.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`}
                         loading="lazy"
                         className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
                       />

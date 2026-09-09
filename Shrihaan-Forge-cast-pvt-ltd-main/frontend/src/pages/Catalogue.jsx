@@ -3,10 +3,29 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { CATEGORIES, categoryCount } from '../data/products';
 import { ProductBrowser } from './Products';
+import { SEO, DOMAIN } from '../components/SEO';
 
 export default function Catalogue({ onQuote }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${DOMAIN}/catalogue#webpage`,
+    url: `${DOMAIN}/catalogue`,
+    name: 'Product Catalogue & Technical Specifications | Shrihaan Cast & Forge',
+    description:
+      'Download and browse the complete product catalogue and technical specifications for steel forgings, scaffolding systems, and agricultural tractor components by Shrihaan Cast & Forge Pvt. Ltd.',
+  };
+
   return (
     <div data-testid="catalogue-page">
+      <SEO
+        title="Product Catalogue & Technical Specifications | Shrihaan Cast & Forge"
+        description="Comprehensive technical product catalogue of Shrihaan Cast & Forge Pvt. Ltd. featuring Ringlock, Cuplock, Kwikstage, steel props, forged couplers, and tractor parts with item codes and specifications."
+        keywords="product catalogue forging manufacturer, scaffolding catalogue PDF, steel props item codes, drop forged couplers specifications, tractor parts catalogue India"
+        canonical="/catalogue"
+        schema={schema}
+      />
+
       <div className="bg-primary">
         <div className="container-x py-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
@@ -29,7 +48,7 @@ export default function Catalogue({ onQuote }) {
               className="group bg-white p-4 flex flex-col items-center text-center transition-colors duration-200 hover:bg-slate-50"
             >
               <div className="h-20 flex items-center justify-center mb-3 overflow-hidden">
-                <img src={c.image} alt={c.name} loading="lazy" className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105" />
+                <img src={c.image} alt={`${c.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`} loading="lazy" className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105" />
               </div>
               <span className="text-xs font-bold text-primary group-hover:text-accent leading-tight transition-colors duration-150">{c.name}</span>
               <span className="mt-1 text-[10px] uppercase tracking-wider text-slate-400 inline-flex items-center gap-1">

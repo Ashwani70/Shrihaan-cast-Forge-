@@ -4,6 +4,7 @@ import { ChevronRight, Maximize2, Mail, CheckCircle2 } from 'lucide-react';
 import { getTractorPart, TRACTOR_PARTS, isCompleteProduct, visibleProducts } from '../data/tractorParts';
 import { ImageLightbox } from '../components/ImageLightbox';
 import { TractorCard } from './TractorParts';
+import { SEO, DOMAIN } from '../components/SEO';
 
 const AOR = 'Available on Request';
 
@@ -34,8 +35,58 @@ export default function TractorPartDetail({ onQuote }) {
   const related = visibleProducts(TRACTOR_PARTS.filter((p) => p.slug !== product.slug)).slice(0, 4);
   const hasSpecs = Object.keys(product.specs || {}).length > 0;
 
+  const productUrl = `${DOMAIN}/tractor-parts/${product.slug}`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Product',
+        '@id': `${productUrl}#product`,
+        name: product.name,
+        image: product.images ? product.images.map((img) => (img.startsWith('http') ? img : `${DOMAIN}${img}`)) : [],
+        description: product.description,
+        sku: product.itemCode || product.slug,
+        category: 'Tractor & Agricultural Components',
+        brand: {
+          '@type': 'Brand',
+          name: 'Shrihaan Cast & Forge',
+        },
+        offers: {
+          '@type': 'Offer',
+          url: productUrl,
+          priceCurrency: 'INR',
+          availability: 'https://schema.org/InStock',
+          seller: {
+            '@type': 'Organization',
+            name: 'Shrihaan Cast & Forge Pvt. Ltd.',
+          },
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${productUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: DOMAIN },
+          { '@type': 'ListItem', position: 2, name: 'Tractor Parts', item: `${DOMAIN}/tractor-parts` },
+          { '@type': 'ListItem', position: 3, name: product.name, item: productUrl },
+        ],
+      },
+    ],
+  };
+
+  const altText = `precision forged tractor component ${product.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`;
+
   return (
     <div data-testid={`tractor-detail-${product.slug}`}>
+      <SEO
+        title={`${product.name} | Shrihaan Cast & Forge`}
+        description={`${product.name} - ${product.description} Precision manufactured tractor agricultural component by Shrihaan Cast & Forge Pvt. Ltd.`}
+        keywords={`${product.name}, tractor parts manufacturer India, agricultural forging components, ${product.name} supplier`}
+        canonical={`/tractor-parts/${product.slug}`}
+        ogImage={product.images && product.images[0]}
+        schema={schema}
+      />
+
       <div className="bg-white border-b border-border">
         <div className="container-x py-4">
           <nav className="flex items-center gap-1.5 text-xs text-secondary flex-wrap" data-testid="breadcrumbs">
@@ -60,7 +111,8 @@ export default function TractorPartDetail({ onQuote }) {
                 >
                   <img
                     src={product.images[active]}
-                    alt={product.name}
+                    alt={altText}
+                    loading="eager"
                     style={{
                       opacity: 1,
                       filter: 'none',
