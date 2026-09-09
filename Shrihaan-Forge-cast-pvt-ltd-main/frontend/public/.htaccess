@@ -1,0 +1,15 @@
+# Hostinger React SPA Router Fallback Configuration
+# Prevents 404 error when refreshing or opening deep URLs directly
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Do not rewrite if requested path matches an existing physical file or directory
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Route all other requests to index.html for React Router client-side handling
+  RewriteRule ^ index.html [L]
+</IfModule>
