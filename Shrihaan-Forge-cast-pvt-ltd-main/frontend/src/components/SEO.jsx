@@ -4,11 +4,11 @@ export const DOMAIN = 'https://www.shrihaancastforge.com';
 export const COMPANY_NAME = 'Shrihaan Cast & Forge Private Limited';
 
 export const DEFAULT_KEYWORDS =
-  'Shrihaan Cast & Forge Private Limited, casting manufacturer, forging manufacturer, precision castings, steel forgings, industrial components, forged components manufacturer, casting and forging components, engineering components';
+  'Shrihaan Cast & Forge Private Limited, Precision Casting, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Casting, Custom Forging';
 
 export function SEO({
-  title = `${COMPANY_NAME} | Casting & Forging Manufacturer`,
-  description = `${COMPANY_NAME} is a trusted manufacturer of precision castings and forged components, delivering high-quality engineering components for industrial applications.`,
+  title = `${COMPANY_NAME} | Precision Casting & Forging Manufacturer`,
+  description = `${COMPANY_NAME} is a precision casting and forging components manufacturer supplying high-quality industrial components for engineering, automotive, machinery and industrial applications.`,
   keywords = DEFAULT_KEYWORDS,
   canonical,
   ogImage = `${DOMAIN}/logo.png`,
@@ -38,6 +38,7 @@ export function SEO({
     setMeta('name', 'theme-color', '#111827');
 
     // Open Graph Tags
+    setMeta('property', 'og:site_name', COMPANY_NAME);
     setMeta('property', 'og:title', title);
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:type', ogType);
@@ -86,13 +87,35 @@ export function SEO({
   return null;
 }
 
-// Single, clean, exact Organization JSON-LD Schema
+// Single clean Organization JSON-LD Schema
 export const ORGANIZATION_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': `${DOMAIN}/#organization`,
   name: 'Shrihaan Cast & Forge Private Limited',
-  url: 'https://www.shrihaancastforge.com/',
-  logo: 'https://www.shrihaancastforge.com/logo.png',
+  legalName: 'Shrihaan Cast & Forge Private Limited',
+  url: `${DOMAIN}/`,
+  logo: `${DOMAIN}/logo.png`,
   description:
     'Shrihaan Cast & Forge Private Limited is a manufacturer of precision casting and forging components for industrial and engineering applications.',
+  telephone: '+91-9115942100',
+  email: 'sales@shrihaancastforge.com',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Gurdev Nagar Estate Sahnewal, Dehlon Road, Paddi',
+    addressLocality: 'Ludhiana',
+    addressRegion: 'Punjab',
+    postalCode: '141206',
+    addressCountry: 'IN',
+  },
+};
+
+// WebSite JSON-LD Schema
+export const WEBSITE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${DOMAIN}/#website`,
+  name: 'Shrihaan Cast & Forge Private Limited',
+  alternateName: 'Shrihaan Cast & Forge',
+  url: `${DOMAIN}/`,
 };
