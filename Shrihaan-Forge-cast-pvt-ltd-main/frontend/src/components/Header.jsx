@@ -53,7 +53,7 @@ export const Header = ({ onQuote }) => {
         </div>
       </div>
       <div className="container-x flex items-center justify-between h-16">
-        <Link to="/" data-testid="header-logo" aria-label="SHRIHAAN CAST & FORGE PVT. LTD. home">
+        <Link to="/" data-testid="header-logo" aria-label="Shrihaan Cast & Forge Private Limited home">
           <Logo dark />
         </Link>
 

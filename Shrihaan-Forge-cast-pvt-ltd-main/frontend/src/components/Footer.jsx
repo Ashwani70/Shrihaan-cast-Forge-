@@ -63,7 +63,7 @@ export const Footer = ({ onQuote }) => (
     </div>
     <div className="border-t border-white/10">
       <div className="container-x py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
-        <span data-testid="footer-copyright">© {new Date().getFullYear()} SHRIHAAN CAST &amp; FORGE PVT. LTD. All rights reserved.</span>
+        <span data-testid="footer-copyright">© {new Date().getFullYear()} Shrihaan Cast &amp; Forge Private Limited. All Rights Reserved.</span>
         <span>Casting · Forging · Scaffolding · Shoring · Industrial Engineering Products</span>
       </div>
     </div>

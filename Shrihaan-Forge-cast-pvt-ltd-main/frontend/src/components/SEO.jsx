@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 
 export const DOMAIN = 'https://www.shrihaancastforge.com';
+export const COMPANY_NAME = 'Shrihaan Cast & Forge Private Limited';
 
 export const DEFAULT_KEYWORDS =
-  'forging manufacturer in India, steel forging manufacturer, forging company in India, industrial forging manufacturer, precision forging manufacturer, forged components manufacturer, custom forging manufacturer, steel forging parts, automotive forging components, engineering forging components, closed die forging, open die forging, precision forged components, industrial forged parts, forged steel components, forging supplier India, forging exporter India';
+  'Shrihaan Cast & Forge Private Limited, casting manufacturer, forging manufacturer, precision castings, steel forgings, industrial components, forged components manufacturer, casting and forging components, engineering components';
 
 export function SEO({
-  title = 'Forging Manufacturer in India | Shrihaan Cast & Forge Pvt. Ltd.',
-  description = 'SHRIHAAN CAST & FORGE PVT. LTD. is a leading forging manufacturer in India producing precision forged steel components, industrial forgings, scaffolding systems, and tractor components for domestic and international B2B markets.',
+  title = `${COMPANY_NAME} | Casting & Forging Manufacturer`,
+  description = `${COMPANY_NAME} is a trusted manufacturer of precision castings and forged components, delivering high-quality engineering components for industrial applications.`,
   keywords = DEFAULT_KEYWORDS,
   canonical,
   ogImage = `${DOMAIN}/logo.png`,
@@ -34,13 +35,14 @@ export function SEO({
     setMeta('name', 'keywords', keywords);
     setMeta('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow');
     setMeta('name', 'viewport', 'width=device-width, initial-scale=1');
-    setMeta('name', 'theme-color', '#0f172a');
+    setMeta('name', 'theme-color', '#111827');
 
     // Open Graph Tags
     setMeta('property', 'og:title', title);
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:type', ogType);
-    setMeta('property', 'og:image', ogImage.startsWith('http') ? ogImage : `${DOMAIN}${ogImage}`);
+    const resolvedOgImage = ogImage.startsWith('http') ? ogImage : `${DOMAIN}${ogImage}`;
+    setMeta('property', 'og:image', resolvedOgImage);
 
     const currPath = window.location.pathname;
     const targetCanonical = canonical
@@ -49,6 +51,12 @@ export function SEO({
         : `${DOMAIN}${canonical}`
       : `${DOMAIN}${currPath}`;
     setMeta('property', 'og:url', targetCanonical);
+
+    // Twitter / X Meta Tags
+    setMeta('name', 'twitter:card', 'summary_large_image');
+    setMeta('name', 'twitter:title', title);
+    setMeta('name', 'twitter:description', description);
+    setMeta('name', 'twitter:image', resolvedOgImage);
 
     // Canonical link tag
     let canonicalEl = document.querySelector('link[rel="canonical"]');
@@ -78,45 +86,13 @@ export function SEO({
   return null;
 }
 
-// Global Organization & LocalBusiness JSON-LD Schema
+// Single, clean, exact Organization JSON-LD Schema
 export const ORGANIZATION_SCHEMA = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': `${DOMAIN}/#organization`,
-  name: 'Shrihaan Cast & Forge Pvt. Ltd.',
-  legalName: 'Shrihaan Cast & Forge Private Limited',
-  url: DOMAIN,
-  logo: `${DOMAIN}/logo.png`,
-  image: `${DOMAIN}/logo.png`,
+  '@type': 'Organization',
+  name: 'Shrihaan Cast & Forge Private Limited',
+  url: 'https://www.shrihaancastforge.com/',
+  logo: 'https://www.shrihaancastforge.com/logo.png',
   description:
-    'Leading manufacturer and exporter of precision forged steel components, industrial forgings, scaffolding systems, formwork accessories, and agricultural tractor components in India.',
-  telephone: '+91-9115942100',
-  email: 'sales@shrihaancastforge.com',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Gurdev Nagar Estate Sahnewal, Dehlon Road, Paddi',
-    addressLocality: 'Ludhiana',
-    addressRegion: 'Punjab',
-    postalCode: '141206',
-    addressCountry: 'IN',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 30.8016,
-    longitude: 75.973,
-  },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: '09:00',
-      closes: '18:30',
-    },
-  ],
-  areaServed: [
-    { '@type': 'Country', name: 'India' },
-    { '@type': 'Place', name: 'Worldwide' },
-  ],
-  sameAs: [],
-  priceRange: '$$$',
+    'Shrihaan Cast & Forge Private Limited is a manufacturer of precision casting and forging components for industrial and engineering applications.',
 };
