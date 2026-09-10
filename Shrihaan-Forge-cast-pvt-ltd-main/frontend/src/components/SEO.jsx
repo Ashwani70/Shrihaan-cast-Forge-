@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 
 export const DOMAIN = 'https://www.shrihaancastforge.com';
-export const COMPANY_NAME = 'Shrihaan Cast & Forge Private Limited';
+export const COMPANY_NAME = 'SHRIHAAN CAST & FORGE PRIVATE LIMITED';
 
 export const DEFAULT_KEYWORDS =
-  'Shrihaan Cast & Forge Private Limited, Precision Forging, Steel Forging, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Forging, Custom Casting';
+  'SHRIHAAN CAST & FORGE PRIVATE LIMITED, Precision Forging, Steel Forging, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Forging, Custom Casting';
 
 export function SEO({
-  title = `${COMPANY_NAME} | Precision Forging & Casting Manufacturer`,
-  description = `${COMPANY_NAME} is a precision forging and casting components manufacturer supplying high-quality industrial components for engineering, automotive, machinery and industrial applications.`,
+  title = `${COMPANY_NAME} | Forging & Casting Manufacturer`,
+  description = `${COMPANY_NAME} is a manufacturer of high-quality forged and cast components, industrial forgings and precision engineering components.`,
   keywords = DEFAULT_KEYWORDS,
   canonical,
   ogImage = `${DOMAIN}/logo.png`,
@@ -49,8 +49,8 @@ export function SEO({
     const targetCanonical = canonical
       ? canonical.startsWith('http')
         ? canonical
-        : `${DOMAIN}${canonical}`
-      : `${DOMAIN}${currPath}`;
+        : `${DOMAIN}${canonical.startsWith('/') ? canonical : '/' + canonical}`
+      : `${DOMAIN}${currPath === '/' ? '/' : currPath}`;
     setMeta('property', 'og:url', targetCanonical);
 
     // Twitter / X Meta Tags
@@ -92,12 +92,12 @@ export const ORGANIZATION_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': `${DOMAIN}/#organization`,
-  name: 'Shrihaan Cast & Forge Private Limited',
-  legalName: 'Shrihaan Cast & Forge Private Limited',
+  name: 'SHRIHAAN CAST & FORGE PRIVATE LIMITED',
+  legalName: 'SHRIHAAN CAST & FORGE PRIVATE LIMITED',
   url: `${DOMAIN}/`,
   logo: `${DOMAIN}/logo.png`,
   description:
-    'Shrihaan Cast & Forge Private Limited is a manufacturer of precision forging and casting components for industrial and engineering applications.',
+    'SHRIHAAN CAST & FORGE PRIVATE LIMITED is a manufacturer of high-quality forged and cast components, industrial forgings and precision engineering components.',
   telephone: '+91-9115942100',
   email: 'sales@shrihaancastforge.com',
   address: {
@@ -115,7 +115,7 @@ export const WEBSITE_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   '@id': `${DOMAIN}/#website`,
-  name: 'Shrihaan Cast & Forge Private Limited',
-  alternateName: 'Shrihaan Cast & Forge',
   url: `${DOMAIN}/`,
+  name: 'SHRIHAAN CAST & FORGE PRIVATE LIMITED',
+  alternateName: 'SHRIHAAN CAST & FORGE',
 };

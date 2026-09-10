@@ -113,7 +113,7 @@ export default function Home({ onQuote }) {
     PRODUCTS.filter((p) => ['ringlock-vertical', 'light-duty-prop', 'british-type-right-angle-coupler', 'cuplock-vertical'].includes(p.slug))
   );
   const featuredTractor = visibleProducts(
-    TRACTOR_PARTS.filter((p) => ['bale-spear-double', 'double-tine-guard-gc255', 'eye-rod-gc271', 'scaffold-cup-gc286'].includes(p.slug))
+    TRACTOR_PARTS.filter((p) => ['bale-spear-double', 'double-tine-guard-gc256', 'eye-rod-gc271', 'scaffold-cup-gc286'].includes(p.slug))
   );
 
   const heroRef = useRef(null);
@@ -132,9 +132,9 @@ export default function Home({ onQuote }) {
         '@type': 'WebPage',
         '@id': `${DOMAIN}/#webpage`,
         url: `${DOMAIN}/`,
-        name: 'Shrihaan Cast & Forge Private Limited | Precision Forging & Casting Manufacturer',
+        name: 'SHRIHAAN CAST & FORGE PRIVATE LIMITED | Forging & Casting Manufacturer',
         description:
-          'Shrihaan Cast & Forge Private Limited is a precision forging and casting components manufacturer supplying high-quality industrial components for engineering, automotive, machinery and industrial applications.',
+          'SHRIHAAN CAST & FORGE PRIVATE LIMITED is a manufacturer of high-quality forged and cast components, industrial forgings and precision engineering components.',
       },
       {
         '@type': 'FAQPage',
@@ -154,9 +154,9 @@ export default function Home({ onQuote }) {
   return (
     <div data-testid="home-page">
       <SEO
-        title="Shrihaan Cast & Forge Private Limited | Precision Forging & Casting Manufacturer"
-        description="Shrihaan Cast & Forge Private Limited is a precision forging and casting components manufacturer supplying high-quality industrial components for engineering, automotive, machinery and industrial applications."
-        keywords="Shrihaan Cast & Forge Private Limited, Precision Forging, Steel Forging, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Forging, Custom Casting"
+        title="SHRIHAAN CAST & FORGE PRIVATE LIMITED | Forging & Casting Manufacturer"
+        description="SHRIHAAN CAST & FORGE PRIVATE LIMITED is a manufacturer of high-quality forged and cast components, industrial forgings and precision engineering components."
+        keywords="SHRIHAAN CAST & FORGE PRIVATE LIMITED, Precision Forging, Steel Forging, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Forging, Custom Casting"
         canonical="/"
         schema={homepageSchema}
       />
@@ -199,7 +199,7 @@ export default function Home({ onQuote }) {
             
             {/* Required SEO H1 containing exact company name */}
             <h1 className="mt-6 font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.1]">
-              Shrihaan Cast &amp; Forge Private Limited
+              SHRIHAAN CAST &amp; FORGE PRIVATE LIMITED
             </h1>
             
             <p className="mt-4 font-heading font-extrabold text-xl sm:text-2xl text-accent">
@@ -212,7 +212,7 @@ export default function Home({ onQuote }) {
               transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
               className="mt-5 text-base md:text-lg text-slate-300 leading-relaxed max-w-2xl"
             >
-              Shrihaan Cast &amp; Forge Private Limited is a precision forging and casting components manufacturer supplying high-quality industrial components for engineering, automotive, machinery and industrial applications.
+              SHRIHAAN CAST &amp; FORGE PRIVATE LIMITED is a manufacturer of high-quality forged and cast components, industrial forgings and precision engineering components.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 16 }}

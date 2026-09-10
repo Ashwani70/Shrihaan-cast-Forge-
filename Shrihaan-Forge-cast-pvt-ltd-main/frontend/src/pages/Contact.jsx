@@ -48,9 +48,9 @@ export default function Contact({ onQuote }) {
         '@type': 'ContactPage',
         '@id': `${DOMAIN}/contact#webpage`,
         url: `${DOMAIN}/contact`,
-        name: 'Contact Forging Manufacturer in India | Shrihaan Cast & Forge',
+        name: 'Contact Forging Manufacturer in India | SHRIHAAN CAST & FORGE PRIVATE LIMITED',
         description:
-          'Contact Shrihaan Cast & Forge Pvt. Ltd. manufacturing unit in Ludhiana, Punjab, India for technical enquiries, custom forging quotes, and export orders.',
+          'Contact SHRIHAAN CAST & FORGE PRIVATE LIMITED manufacturing unit in Ludhiana, Punjab, India for technical enquiries, custom forging quotes, and export orders.',
       },
     ],
   };
@@ -58,9 +58,9 @@ export default function Contact({ onQuote }) {
   return (
     <div data-testid="contact-page">
       <SEO
-        title="Contact Forging Manufacturer in India | Shrihaan Cast & Forge"
-        description="Get in touch with Shrihaan Cast & Forge Pvt. Ltd. in Ludhiana, Punjab, India for B2B enquiries, custom forging solutions, scaffolding product pricing, and international export orders."
-        keywords="Contact Shrihaan Cast & Forge, forging supplier contact Ludhiana, steel forging quote, scaffolding manufacturer address Ludhiana Punjab, export enquiry forging"
+        title="Contact Forging Manufacturer in India | SHRIHAAN CAST & FORGE PRIVATE LIMITED"
+        description="Get in touch with SHRIHAAN CAST & FORGE PRIVATE LIMITED in Ludhiana, Punjab, India for B2B enquiries, custom forging solutions, scaffolding product pricing, and international export orders."
+        keywords="Contact SHRIHAAN CAST & FORGE PRIVATE LIMITED, forging supplier contact Ludhiana, steel forging quote, scaffolding manufacturer address Ludhiana Punjab, export enquiry forging"
         canonical="/contact"
         schema={schema}
       />
@@ -69,7 +69,7 @@ export default function Contact({ onQuote }) {
         <div className="container-x py-16">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Contact &amp; Location</span>
           <h1 className="mt-2 font-heading font-extrabold text-3xl md:text-4xl text-white">
-            Contact SHRIHAAN CAST &amp; FORGE PVT. LTD.
+            Contact SHRIHAAN CAST &amp; FORGE PRIVATE LIMITED
           </h1>
           <p className="mt-3 text-slate-300 max-w-2xl text-sm md:text-base">
             Send us your product requirements, quantities and destination — our engineering team will respond with specifications, pricing and lead times.

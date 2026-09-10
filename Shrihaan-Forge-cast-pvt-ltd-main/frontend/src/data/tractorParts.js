@@ -30,7 +30,7 @@ const photo = (name, slug, itemCode, extras = 0, opts = {}) => ({
 
 const ZIP_PRODUCTS = [
   // Agriculture parts (harvester guards & blades)
-  ...['GC255', 'GC256', 'GC257', 'GC260', 'GC261', 'GC262', 'GC263'].map((m) =>
+  ...['GC256', 'GC257', 'GC260', 'GC261', 'GC262', 'GC263'].map((m) =>
     photo('Double Tine Guard', `double-tine-guard-${m.toLowerCase()}`, m, 1, { divisions: ['agriculture-parts'] })
   ),
   photo('Single Tine Guard', 'single-tine-guard-gc258', 'GC258', 1, { divisions: ['agriculture-parts'] }),
