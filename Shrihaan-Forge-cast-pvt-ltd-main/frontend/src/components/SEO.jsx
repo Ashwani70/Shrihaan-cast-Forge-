@@ -117,5 +117,5 @@ export const WEBSITE_SCHEMA = {
   '@id': `${DOMAIN}/#website`,
   url: `${DOMAIN}/`,
   name: 'SHRIHAAN CAST & FORGE PRIVATE LIMITED',
-  alternateName: 'SHRIHAAN CAST & FORGE',
+  alternateName: ['SHRIHAAN CAST & FORGE', 'Shrihaan Cast & Forge Pvt. Ltd.', 'Shrihaan Cast & Forge Pvt Ltd'],
 };
