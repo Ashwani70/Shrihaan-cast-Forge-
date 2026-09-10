@@ -1,15 +1,25 @@
-# Hostinger React SPA Router Fallback Configuration
-# Prevents 404 error when refreshing or opening deep URLs directly
+# SHRIHAAN CAST & FORGE PRIVATE LIMITED - Production Apache / Hostinger Configuration
+
+# 1. Force index.html as primary DirectoryIndex over index.php (prevents WordPress index.php from hijacking root domain /)
+DirectoryIndex index.html index.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Do not rewrite if requested path matches an existing physical file or directory
+  # 2. Canonical Domain Redirection:
+  # Redirect http://shrihaancastforge.com, http://www.shrihaancastforge.com, and https://shrihaancastforge.com
+  # to official canonical URL: https://www.shrihaancastforge.com/
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?shrihaancastforge\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.shrihaancastforge.com/$1 [R=301,L]
+
+  # 3. Serve physical files and directories directly if they exist
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Route all other requests to index.html for React Router client-side handling
+  # 4. Fallback all SPA routes (/about, /products, /contact, etc.) to index.html
   RewriteRule ^ index.html [L]
 </IfModule>
