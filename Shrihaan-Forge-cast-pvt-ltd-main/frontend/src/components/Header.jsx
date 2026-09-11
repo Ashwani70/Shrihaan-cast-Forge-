@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Menu, X, ChevronDown, Phone, Mail } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Logo } from './Logo';
 import { DIVISIONS } from '../data/products';
 
@@ -35,23 +35,6 @@ export const Header = ({ onQuote }) => {
 
   return (
     <header data-testid="site-header" className="sticky top-0 z-50 bg-primary/95 backdrop-blur-xl border-b border-white/10">
-      <div className="bg-black/30 border-b border-white/5 py-1.5 text-xs text-slate-300">
-        <div className="container-x flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-5">
-            <a href="tel:+919115942100" className="flex items-center gap-1.5 hover:text-accent transition-colors">
-              <Phone className="w-3.5 h-3.5 text-accent" />
-              <span>+91-9115942100</span>
-            </a>
-            <a href="mailto:sales@shrihaancastforge.com" className="flex items-center gap-1.5 hover:text-accent transition-colors">
-              <Mail className="w-3.5 h-3.5 text-accent" />
-              <span>sales@shrihaancastforge.com</span>
-            </a>
-          </div>
-          <div className="hidden md:block text-slate-400 text-[11px]">
-            Gurdev Nagar Estate Sahnewal, Dehlon Road, Paddi, Ludhiana, Punjab, India - 141206
-          </div>
-        </div>
-      </div>
       <div className="container-x flex items-center justify-between h-16">
         <Link to="/" data-testid="header-logo" aria-label="Shrihaan Cast & Forge Private Limited home">
           <Logo dark />
