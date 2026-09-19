@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 
-export const DOMAIN = 'https://www.shrihaancastforge.com';
-export const COMPANY_NAME = 'SHRIHAAN CAST & FORGE PRIVATE LIMITED';
+export const DOMAIN = 'https://shrihaancastforge.com';
+export const COMPANY_NAME = 'Shrihaan Cast & Forge Pvt Ltd';
+
+export const DEFAULT_DESCRIPTION =
+  'Shrihaan Cast & Forge Pvt Ltd is a manufacturer and exporter of forging and casting components for automotive, industrial and engineering applications.';
 
 export const DEFAULT_KEYWORDS =
-  'SHRIHAAN CAST & FORGE PRIVATE LIMITED, Precision Forging, Steel Forging, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Forging, Custom Casting';
+  'Shrihaan Cast & Forge Pvt Ltd, Precision Forging, Steel Forging, Investment Casting, Steel Casting, Forging Components, Precision Forged Components, Industrial Components, Custom Forging, Custom Casting';
 
 export function SEO({
   title = `${COMPANY_NAME} | Forging & Casting Manufacturer`,
-  description = `${COMPANY_NAME} is a manufacturer of high-quality forged and cast components, industrial forgings and precision engineering components.`,
+  description = DEFAULT_DESCRIPTION,
   keywords = DEFAULT_KEYWORDS,
   canonical,
   ogImage = `${DOMAIN}/logo.png`,
@@ -42,7 +45,7 @@ export function SEO({
     setMeta('property', 'og:title', title);
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:type', ogType);
-    const resolvedOgImage = ogImage.startsWith('http') ? ogImage : `${DOMAIN}${ogImage}`;
+    const resolvedOgImage = ogImage.startsWith('http') ? ogImage : `${DOMAIN}${ogImage.startsWith('/') ? ogImage : '/' + ogImage}`;
     setMeta('property', 'og:image', resolvedOgImage);
 
     const currPath = window.location.pathname;
@@ -92,12 +95,11 @@ export const ORGANIZATION_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': `${DOMAIN}/#organization`,
-  name: 'SHRIHAAN CAST & FORGE PRIVATE LIMITED',
-  legalName: 'SHRIHAAN CAST & FORGE PRIVATE LIMITED',
+  name: 'Shrihaan Cast & Forge Pvt Ltd',
+  legalName: 'Shrihaan Cast & Forge Pvt Ltd',
   url: `${DOMAIN}/`,
   logo: `${DOMAIN}/logo.png`,
-  description:
-    'SHRIHAAN CAST & FORGE PRIVATE LIMITED is a manufacturer of high-quality forged and cast components, industrial forgings and precision engineering components.',
+  description: DEFAULT_DESCRIPTION,
   telephone: '+91-9115942100',
   email: 'sales@shrihaancastforge.com',
   address: {
@@ -116,6 +118,6 @@ export const WEBSITE_SCHEMA = {
   '@type': 'WebSite',
   '@id': `${DOMAIN}/#website`,
   url: `${DOMAIN}/`,
-  name: 'SHRIHAAN CAST & FORGE PRIVATE LIMITED',
-  alternateName: ['SHRIHAAN CAST & FORGE', 'Shrihaan Cast & Forge Pvt. Ltd.', 'Shrihaan Cast & Forge Pvt Ltd'],
+  name: 'Shrihaan Cast & Forge Pvt Ltd',
+  alternateName: ['Shrihaan Cast & Forge', 'Shrihaan Cast & Forge Private Limited', 'Shrihaan Cast & Forge Pvt. Ltd.'],
 };

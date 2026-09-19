@@ -21,7 +21,7 @@ export const ProductCard = ({ product, onQuote, index = 0 }) => {
         <div className="product-image-container p-2.5">
           <img
             src={product.image}
-            alt={product.name}
+            alt={`Shrihaan Cast & Forge Pvt Ltd ${product.name} forging component`}
             loading="lazy"
             style={{
               opacity: 1,

@@ -127,7 +127,8 @@ export const EnquiryModal = ({ open, onClose, product }) => {
         setSubmittedMessage('');
       }, 3000);
     } catch (err) {
-      const errorMsg = 'Unable to send your enquiry right now. Please try again or contact sales@shrihaancastforge.com.';
+      console.error('Enquiry submission error:', err);
+      const errorMsg = err.response?.data?.detail || 'Unable to send your enquiry right now. Please try again or contact sales@shrihaancastforge.com.';
       toast.error(errorMsg);
       setSubmittedMessage(errorMsg);
     } finally {

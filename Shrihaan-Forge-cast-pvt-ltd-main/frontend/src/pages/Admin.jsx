@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { Logo } from '../components/Logo';
 import { Trash2, LogOut, RefreshCw } from 'lucide-react';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const API = `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000'}/api`;
 const TOKEN_KEY = 'shrihaan_admin_token';
 
 const STATUS_STYLES = {

@@ -48,17 +48,17 @@ export default function Quality({ onQuote }) {
     '@type': 'WebPage',
     '@id': `${DOMAIN}/quality#webpage`,
     url: `${DOMAIN}/quality`,
-    name: 'Quality & Inspection | Forging Manufacturer India',
+    name: 'Quality & Testing Standards | Shrihaan Cast & Forge Pvt Ltd',
     description:
-      'Quality assurance, metallurgical testing, chemical spectro analysis, and ISO compliance standards at Shrihaan Cast & Forge Pvt. Ltd.',
+      'Shrihaan Cast & Forge Pvt Ltd maintains strict quality control, spectro chemical analysis, UTM tensile testing, hardness testing, and NDT inspection for forged components.',
   };
 
   return (
     <div data-testid="quality-page">
       <SEO
-        title="Quality & Inspection | Forging Manufacturer India"
-        description="Shrihaan Cast & Forge Pvt. Ltd. maintains rigorous quality control, spectro analysis, ultrasonic NDT, mechanical testing, and EN-74 / BS-1139 compliance for forged steel components."
-        keywords="quality assurance forging, NDT ultrasonic testing forgings, spectro chemical analysis steel, EN-74 scaffolding couplers test, ISO quality forging manufacturer Ludhiana, mechanical load testing"
+        title="Quality & Testing Standards | Shrihaan Cast & Forge Pvt Ltd"
+        description="Shrihaan Cast & Forge Pvt Ltd maintains strict quality control, spectro chemical analysis, UTM tensile testing, hardness testing, and NDT inspection for forged components."
+        keywords="Quality Assurance, Metallurgical Testing, Spectro Analysis, CMM Inspection, UTM Load Testing, EN-74 BS-1139, Shrihaan Cast & Forge Pvt Ltd"
         canonical="/quality"
         schema={schema}
       />

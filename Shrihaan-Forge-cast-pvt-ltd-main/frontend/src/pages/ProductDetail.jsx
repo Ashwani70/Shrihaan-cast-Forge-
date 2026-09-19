@@ -72,7 +72,7 @@ export default function ProductDetail({ onQuote }) {
           availability: 'https://schema.org/InStock',
           seller: {
             '@type': 'Organization',
-            name: 'Shrihaan Cast & Forge Pvt. Ltd.',
+            name: 'Shrihaan Cast & Forge Pvt Ltd',
           },
         },
       },
@@ -89,14 +89,14 @@ export default function ProductDetail({ onQuote }) {
     ],
   };
 
-  const altText = `precision forged steel industrial component ${product.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`;
+  const altText = `Shrihaan Cast & Forge Pvt Ltd forging component ${product.name} (${product.itemCode || ''})`;
 
   return (
     <div data-testid={`product-detail-${product.slug}`}>
       <SEO
-        title={`${product.name} | Shrihaan Cast & Forge`}
-        description={`${product.name} (${product.itemCode || ''}) - ${product.description} Manufactured to strict standards by Shrihaan Cast & Forge Pvt. Ltd.`}
-        keywords={`${product.name}, ${product.itemCode || ''}, ${cat.name}, precision forged components, steel forging manufacturer India`}
+        title={`${product.name} | Shrihaan Cast & Forge Pvt Ltd`}
+        description={`${product.name} (${product.itemCode || ''}) - ${product.description} Manufactured by Shrihaan Cast & Forge Pvt Ltd.`}
+        keywords={`${product.name}, ${product.itemCode || ''}, ${cat.name}, precision forged components, steel forging manufacturer India, Shrihaan Cast & Forge Pvt Ltd`}
         canonical={`/products/${cat.slug}/${product.slug}`}
         ogImage={gallery[0]}
         schema={schema}

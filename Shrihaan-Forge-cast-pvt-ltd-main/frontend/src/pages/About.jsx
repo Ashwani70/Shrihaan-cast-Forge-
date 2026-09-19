@@ -12,8 +12,8 @@ export default function About({ onQuote }) {
         '@type': 'AboutPage',
         '@id': `${DOMAIN}/about#webpage`,
         url: `${DOMAIN}/about`,
-        name: `About ${COMPANY_NAME} | Forging & Casting Manufacturer`,
-        description: `${COMPANY_NAME} is a manufacturer of high-quality forging and casting components for industrial and engineering applications.`,
+        name: `About Shrihaan Cast & Forge Pvt Ltd | Forging & Casting Manufacturer`,
+        description: `Shrihaan Cast & Forge Pvt Ltd is a manufacturer and exporter of forging and casting components for automotive, industrial and engineering applications.`,
       },
     ],
   };
@@ -21,9 +21,9 @@ export default function About({ onQuote }) {
   return (
     <div data-testid="about-page">
       <SEO
-        title={`About ${COMPANY_NAME} | Forging & Casting Manufacturer`}
-        description={`${COMPANY_NAME} is a manufacturer of high-quality forging and casting components for industrial and engineering applications. We focus on precision, quality, reliability and consistent manufacturing standards.`}
-        keywords="Shrihaan Cast & Forge Private Limited, About Shrihaan Cast & Forge, forging manufacturer, casting manufacturer, precision components, industrial components, engineering components"
+        title="About Us | Shrihaan Cast & Forge Pvt Ltd"
+        description="Shrihaan Cast & Forge Pvt Ltd is a manufacturer and exporter of forging and casting components for automotive, industrial and engineering applications."
+        keywords="Shrihaan Cast & Forge Pvt Ltd, About Shrihaan Cast & Forge, forging manufacturer, casting manufacturer, precision components, industrial components, engineering components"
         canonical="/about"
         schema={schema}
       />
@@ -32,10 +32,10 @@ export default function About({ onQuote }) {
         <div className="container-x py-16">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">About Our Company</span>
           <h1 className="mt-2 font-heading font-extrabold text-3xl md:text-4xl text-white">
-            SHRIHAAN CAST &amp; FORGE PRIVATE LIMITED
+            Shrihaan Cast &amp; Forge Pvt Ltd
           </h1>
           <p className="mt-4 text-slate-300 max-w-3xl text-sm md:text-base leading-relaxed">
-            Manufacturer of high-quality forging and casting components for industrial and engineering applications.
+            Manufacturer and exporter of high-quality forging and casting components for automotive, industrial and engineering applications.
           </p>
         </div>
       </div>

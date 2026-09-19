@@ -1,4 +1,4 @@
-# SHRIHAAN CAST & FORGE PRIVATE LIMITED - Production Apache / Hostinger Configuration
+# SHRIHAAN CAST & FORGE PVT LTD - Production Apache / Hostinger Configuration
 
 # 1. Force index.html as primary DirectoryIndex over index.php (prevents WordPress index.php from hijacking root domain /)
 DirectoryIndex index.html index.php
@@ -8,12 +8,11 @@ DirectoryIndex index.html index.php
   RewriteBase /
 
   # 2. Canonical Domain Redirection:
-  # Redirect http://shrihaancastforge.com, http://www.shrihaancastforge.com, and https://shrihaancastforge.com
-  # to official canonical URL: https://www.shrihaancastforge.com/
+  # Redirect http://shrihaancastforge.com, http://www.shrihaancastforge.com, and https://www.shrihaancastforge.com
+  # to official canonical non-www URL: https://shrihaancastforge.com/
   RewriteCond %{HTTPS} off [OR]
-  RewriteCond %{HTTP_HOST} !^www\. [NC]
-  RewriteCond %{HTTP_HOST} ^(?:www\.)?shrihaancastforge\.com$ [NC]
-  RewriteRule ^(.*)$ https://www.shrihaancastforge.com/$1 [R=301,L]
+  RewriteCond %{HTTP_HOST} ^www\.shrihaancastforge\.com$ [NC]
+  RewriteRule ^(.*)$ https://shrihaancastforge.com/$1 [R=301,L]
 
   # 3. Serve physical files and directories directly if they exist
   RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -23,3 +22,4 @@ DirectoryIndex index.html index.php
   # 4. Fallback all SPA routes (/about, /products, /contact, etc.) to index.html
   RewriteRule ^ index.html [L]
 </IfModule>
+

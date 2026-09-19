@@ -76,17 +76,17 @@ export default function Products({ onQuote }) {
     '@type': 'WebPage',
     '@id': `${DOMAIN}/products#webpage`,
     url: `${DOMAIN}/products`,
-    name: 'Forged Components & Industrial Forgings | Shrihaan Cast & Forge',
+    name: 'Forging & Casting Products | Shrihaan Cast & Forge Pvt Ltd',
     description:
-      'Explore precision forged components, steel forgings, scaffolding systems, and tractor parts manufactured by Shrihaan Cast & Forge Pvt. Ltd. India.',
+      'Explore precision forging and casting components, scaffolding systems, and tractor parts manufactured by Shrihaan Cast & Forge Pvt Ltd.',
   };
 
   return (
     <div data-testid="products-page" className="section-pad">
       <SEO
-        title="Forged Components & Industrial Forgings | Shrihaan Cast & Forge"
-        description="Comprehensive product range of precision steel forgings, industrial components, Ringlock, Cuplock scaffolding systems, steel props, drop forged couplers, and tractor agricultural parts manufactured by Shrihaan Cast & Forge Pvt. Ltd."
-        keywords="Forged Components, Industrial Forgings, Steel Forgings Manufacturer, Scaffolding Systems, Ringlock System, Cuplock System, Steel Props, Drop Forged Couplers, Agricultural Tractor Parts"
+        title="Forging & Casting Products | Shrihaan Cast & Forge Pvt Ltd"
+        description="Explore precision forging and casting components, scaffolding systems, and tractor parts manufactured by Shrihaan Cast & Forge Pvt Ltd."
+        keywords="Forged Components, Industrial Forgings, Steel Forgings Manufacturer, Scaffolding Systems, Ringlock System, Cuplock System, Steel Props, Drop Forged Couplers, Agricultural Tractor Parts, Shrihaan Cast & Forge Pvt Ltd"
         canonical="/products"
         schema={schema}
       />

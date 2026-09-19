@@ -60,7 +60,7 @@ export default function DivisionPage({ onQuote }) {
     '@type': 'CollectionPage',
     '@id': `${DOMAIN}/products/${division.slug}#collection`,
     url: `${DOMAIN}/products/${division.slug}`,
-    name: `${title} | Shrihaan Cast & Forge`,
+    name: `${title} | Shrihaan Cast & Forge Pvt Ltd`,
     description: division.description,
     breadcrumb: {
       '@type': 'BreadcrumbList',
@@ -75,9 +75,9 @@ export default function DivisionPage({ onQuote }) {
   return (
     <div data-testid={`division-page-${division.slug}`}>
       <SEO
-        title={`${title} | Shrihaan Cast & Forge`}
-        description={`${title} - ${division.description} Manufactured by Shrihaan Cast & Forge Pvt. Ltd. India.`}
-        keywords={`${title}, ${division.name}, steel forging manufacturer India, precision forged components`}
+        title={`${title} | Shrihaan Cast & Forge Pvt Ltd`}
+        description={`${title} - ${division.description} Manufactured by Shrihaan Cast & Forge Pvt Ltd.`}
+        keywords={`${title}, ${division.name}, steel forging manufacturer India, precision forged components, Shrihaan Cast & Forge Pvt Ltd`}
         canonical={`/products/${division.slug}`}
         schema={schema}
       />

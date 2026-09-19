@@ -1,8 +1,9 @@
-# User-agent directives for Shrihaan Cast & Forge Pvt. Ltd.
+# User-agent directives for Shrihaan Cast & Forge Pvt Ltd
 User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin/*
 
 # Sitemap location
-Sitemap: https://www.shrihaancastforge.com/sitemap.xml
+Sitemap: https://shrihaancastforge.com/sitemap.xml
+

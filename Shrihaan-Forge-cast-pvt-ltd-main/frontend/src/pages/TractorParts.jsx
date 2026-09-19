@@ -90,16 +90,16 @@ export default function TractorParts({ onQuote }) {
     '@type': 'CollectionPage',
     '@id': `${DOMAIN}/tractor-parts#collection`,
     url: `${DOMAIN}/tractor-parts`,
-    name: 'Tractor & Agricultural Forged Components | Shrihaan Cast & Forge',
-    description: 'High-strength forged agricultural tractor parts, bale spears, tine guards, eye rods, top link pins, and hitch components.',
+    name: 'Tractor & Agricultural Components | Shrihaan Cast & Forge Pvt Ltd',
+    description: 'Precision forged tractor and agricultural components manufactured by Shrihaan Cast & Forge Pvt Ltd.',
   };
 
   return (
     <div data-testid="tractor-parts-page">
       <SEO
-        title="Tractor & Agricultural Forged Components | Shrihaan Cast & Forge"
-        description="Precision forged tractor and agricultural components, bale spears, double tine guards, eye rods, scaffold cups, hitch pins, and top link pins manufactured by Shrihaan Cast & Forge Pvt. Ltd."
-        keywords="tractor parts manufacturer India, agricultural forging components, bale spear double, tine guard, eye rod, top link pin, linch pin, hitch pin, agricultural machinery parts"
+        title="Tractor & Agricultural Components | Shrihaan Cast & Forge Pvt Ltd"
+        description="Precision forged tractor and agricultural components, bale spears, double tine guards, eye rods, scaffold cups, and hitch pins manufactured by Shrihaan Cast & Forge Pvt Ltd."
+        keywords="tractor parts manufacturer India, agricultural forging components, bale spear double, tine guard, eye rod, top link pin, linch pin, hitch pin, agricultural machinery parts, Shrihaan Cast & Forge Pvt Ltd"
         canonical="/tractor-parts"
         schema={schema}
       />

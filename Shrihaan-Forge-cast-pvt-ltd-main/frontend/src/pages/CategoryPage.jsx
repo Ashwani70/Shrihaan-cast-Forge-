@@ -15,7 +15,7 @@ export default function CategoryPage({ onQuote }) {
     '@type': 'CollectionPage',
     '@id': `${DOMAIN}/products/${cat.slug}#collection`,
     url: `${DOMAIN}/products/${cat.slug}`,
-    name: `${cat.name} | Shrihaan Cast & Forge`,
+    name: `${cat.name} | Shrihaan Cast & Forge Pvt Ltd`,
     description: cat.description,
     breadcrumb: {
       '@type': 'BreadcrumbList',
@@ -30,9 +30,9 @@ export default function CategoryPage({ onQuote }) {
   return (
     <div data-testid={`category-page-${cat.slug}`}>
       <SEO
-        title={`${cat.name} Manufacturer & Supplier | Shrihaan Cast & Forge`}
-        description={`High quality ${cat.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd. ${cat.description}`}
-        keywords={`${cat.name}, ${cat.name} manufacturer India, ${cat.name} supplier, scaffolding components, steel forging manufacturer`}
+        title={`${cat.name} | Shrihaan Cast & Forge Pvt Ltd`}
+        description={`${cat.name} - ${cat.description} Manufactured by Shrihaan Cast & Forge Pvt Ltd.`}
+        keywords={`${cat.name}, ${cat.name} manufacturer India, ${cat.name} supplier, scaffolding components, steel forging manufacturer, Shrihaan Cast & Forge Pvt Ltd`}
         canonical={`/products/${cat.slug}`}
         schema={schema}
       />

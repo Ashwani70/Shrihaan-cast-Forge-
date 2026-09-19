@@ -11,17 +11,17 @@ export default function Catalogue({ onQuote }) {
     '@type': 'WebPage',
     '@id': `${DOMAIN}/catalogue#webpage`,
     url: `${DOMAIN}/catalogue`,
-    name: 'Product Catalogue & Technical Specifications | Shrihaan Cast & Forge',
+    name: 'Product Catalogue | Shrihaan Cast & Forge Pvt Ltd',
     description:
-      'Download and browse the complete product catalogue and technical specifications for steel forgings, scaffolding systems, and agricultural tractor components by Shrihaan Cast & Forge Pvt. Ltd.',
+      'Browse the product catalogue and technical specifications for steel forgings, scaffolding systems, and tractor parts by Shrihaan Cast & Forge Pvt Ltd.',
   };
 
   return (
     <div data-testid="catalogue-page">
       <SEO
-        title="Product Catalogue & Technical Specifications | Shrihaan Cast & Forge"
-        description="Comprehensive technical product catalogue of Shrihaan Cast & Forge Pvt. Ltd. featuring Ringlock, Cuplock, Kwikstage, steel props, forged couplers, and tractor parts with item codes and specifications."
-        keywords="product catalogue forging manufacturer, scaffolding catalogue PDF, steel props item codes, drop forged couplers specifications, tractor parts catalogue India"
+        title="Product Catalogue | Shrihaan Cast & Forge Pvt Ltd"
+        description="Browse the product catalogue and technical specifications for steel forgings, scaffolding systems, and tractor parts by Shrihaan Cast & Forge Pvt Ltd."
+        keywords="product catalogue forging manufacturer, scaffolding catalogue, steel props item codes, drop forged couplers specifications, tractor parts catalogue, Shrihaan Cast & Forge Pvt Ltd"
         canonical="/catalogue"
         schema={schema}
       />

@@ -58,7 +58,7 @@ export default function TractorPartDetail({ onQuote }) {
           availability: 'https://schema.org/InStock',
           seller: {
             '@type': 'Organization',
-            name: 'Shrihaan Cast & Forge Pvt. Ltd.',
+            name: 'Shrihaan Cast & Forge Pvt Ltd',
           },
         },
       },
@@ -74,14 +74,14 @@ export default function TractorPartDetail({ onQuote }) {
     ],
   };
 
-  const altText = `precision forged tractor component ${product.name} manufactured by Shrihaan Cast & Forge Pvt. Ltd.`;
+  const altText = `Shrihaan Cast & Forge Pvt Ltd tractor component ${product.name} (${product.itemCode || ''})`;
 
   return (
     <div data-testid={`tractor-detail-${product.slug}`}>
       <SEO
-        title={`${product.name} | Shrihaan Cast & Forge`}
-        description={`${product.name} - ${product.description} Precision manufactured tractor agricultural component by Shrihaan Cast & Forge Pvt. Ltd.`}
-        keywords={`${product.name}, tractor parts manufacturer India, agricultural forging components, ${product.name} supplier`}
+        title={`${product.name} | Shrihaan Cast & Forge Pvt Ltd`}
+        description={`${product.name} - ${product.description} Precision manufactured tractor agricultural component by Shrihaan Cast & Forge Pvt Ltd.`}
+        keywords={`${product.name}, tractor parts manufacturer India, agricultural forging components, ${product.name} supplier, Shrihaan Cast & Forge Pvt Ltd`}
         canonical={`/tractor-parts/${product.slug}`}
         ogImage={product.images && product.images[0]}
         schema={schema}

@@ -342,7 +342,10 @@ async def create_enquiry(input: EnquiryCreate):
     obj = Enquiry(**sanitized)
     doc = obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
-    await db.enquiries.insert_one(doc)
+    try:
+        await db.enquiries.insert_one(doc)
+    except Exception as db_err:
+        logger.error(f"Database insertion error (continuing with email dispatch): {db_err}")
 
     target_email = OWNER_EMAIL or "sales@shrihaancastforge.com"
     product_name = input.product.strip() or "General Enquiry"

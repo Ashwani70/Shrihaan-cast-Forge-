@@ -48,17 +48,17 @@ export default function Capabilities({ onQuote }) {
     '@type': 'WebPage',
     '@id': `${DOMAIN}/capabilities#webpage`,
     url: `${DOMAIN}/capabilities`,
-    name: 'Forging Manufacturing Capabilities | Shrihaan Cast & Forge Pvt. Ltd.',
+    name: 'Forging & Engineering Capabilities | Shrihaan Cast & Forge Pvt Ltd',
     description:
-      'Explore advanced closed die forging, drop forging, precision CNC machining, heat treatment, and custom tooling capabilities at Shrihaan Cast & Forge Pvt. Ltd.',
+      'Explore advanced closed die forging, drop forging, precision CNC machining, heat treatment, and custom tooling capabilities at Shrihaan Cast & Forge Pvt Ltd.',
   };
 
   return (
     <div data-testid="capabilities-page">
       <SEO
-        title="Forging Manufacturing Capabilities | Shrihaan Cast & Forge"
-        description="Comprehensive forging manufacturing capabilities including closed die forging, drop forging, CNC machining, heat treatment, and custom tooling at Shrihaan Cast & Forge Pvt. Ltd. India."
-        keywords="forging manufacturing capabilities, closed die forging, drop forging manufacturer, precision CNC machining, custom forging solutions, heat treatment steel forgings, forging facility India"
+        title="Forging & Engineering Capabilities | Shrihaan Cast & Forge Pvt Ltd"
+        description="Explore advanced closed die forging, drop forging, precision CNC machining, heat treatment, and custom tooling capabilities at Shrihaan Cast & Forge Pvt Ltd."
+        keywords="forging manufacturing capabilities, closed die forging, drop forging manufacturer, precision CNC machining, custom forging solutions, heat treatment steel forgings, Shrihaan Cast & Forge Pvt Ltd"
         canonical="/capabilities"
         schema={schema}
       />

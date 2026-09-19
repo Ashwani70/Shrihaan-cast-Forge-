@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, ContactShadows } from '@react-three/drei';
 import { Ruler, FileText } from 'lucide-react';
 import { PRODUCTS, getModel, getCategory } from '../data/products';
+import { SEO } from '../components/SEO';
 
 const GROUPS = [
   { key: 'all', label: 'All', cats: null },
@@ -121,6 +122,11 @@ export default function Gallery3D({ onQuote }) {
 
   return (
     <div data-testid="gallery3d-page" className="bg-[#0b1220] min-h-screen">
+      <SEO
+        title="3D Product Gallery | Interactive Catalogue | Shrihaan Cast & Forge Pvt Ltd"
+        description="Explore interactive 3D product visualizations for scaffolding systems, props, screw jacks and precision forged components."
+        canonical="/gallery3d"
+      />
       <div className="container-x py-14 md:py-20">
         <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Interactive</span>
         <h1 className="mt-2 font-heading font-extrabold text-3xl md:text-4xl text-white">3D Product Gallery</h1>

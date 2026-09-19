@@ -48,17 +48,17 @@ export default function Industries({ onQuote }) {
     '@type': 'WebPage',
     '@id': `${DOMAIN}/industries#webpage`,
     url: `${DOMAIN}/industries`,
-    name: 'Industries Served | Shrihaan Cast & Forge Pvt. Ltd.',
+    name: 'Industries Served | Shrihaan Cast & Forge Pvt Ltd',
     description:
-      'Industrial sectors served by Shrihaan Cast & Forge Pvt. Ltd., including automotive, agricultural tractor parts, scaffolding, civil infrastructure, and heavy engineering.',
+      'Shrihaan Cast & Forge Pvt Ltd supplies precision forged and cast components for automotive, agricultural tractor parts, scaffolding, and industrial applications.',
   };
 
   return (
     <div data-testid="industries-page">
       <SEO
-        title="Industries Served | Forging Manufacturer India"
-        description="Shrihaan Cast & Forge Pvt. Ltd. supplies precision forged components to Automotive, Agriculture, Scaffolding, Civil Infrastructure, and Heavy Engineering industries across India and global export markets."
-        keywords="industries served, automotive forging components, tractor parts manufacturer, scaffolding components, civil infrastructure shoring, engineering forging components, forging exporter India"
+        title="Industries Served | Shrihaan Cast & Forge Pvt Ltd"
+        description="Shrihaan Cast & Forge Pvt Ltd supplies precision forged and cast components for automotive, agricultural tractor parts, scaffolding, and industrial applications."
+        keywords="Industries Served, Automotive Forging, Agriculture Tractor Parts, Scaffolding Manufacturer, Civil Infrastructure, Shrihaan Cast & Forge Pvt Ltd"
         canonical="/industries"
         schema={schema}
       />

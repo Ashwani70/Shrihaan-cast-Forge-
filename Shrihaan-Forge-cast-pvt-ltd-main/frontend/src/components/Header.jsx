@@ -36,7 +36,7 @@ export const Header = ({ onQuote }) => {
   return (
     <header data-testid="site-header" className="sticky top-0 z-50 bg-primary/95 backdrop-blur-xl border-b border-white/10">
       <div className="container-x flex items-center justify-between h-16">
-        <Link to="/" data-testid="header-logo" aria-label="Shrihaan Cast & Forge Private Limited home">
+        <Link to="/" data-testid="header-logo" aria-label="Shrihaan Cast & Forge Pvt Ltd home">
           <Logo dark />
         </Link>
 
